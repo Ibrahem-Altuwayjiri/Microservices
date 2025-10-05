@@ -1,0 +1,45 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Services.AuthAPI.Application.IService;
+using Services.AuthAPI.Application.Service;
+using Services.AuthAPI.Shared.Models.Dto;
+using Services.AuthAPI.Shared.Models.Dto.User;
+using System.Text;
+using System.Text.Json;
+
+namespace Services.AuthAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserManagementController : ControllerBase
+    {
+        private readonly IUserService _userService;
+
+        public UserManagementController(IUserService userService, IHttpClientFactory httpClientFactory)
+        {
+            _userService = userService;
+        }
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser([FromBody] NewUserDto newUser)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(await _userService.CreateNewUser(newUser));
+        }
+
+        [HttpPost("UpdateUser")]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUser)
+        {
+            return Ok(await _userService.UpdateUser(updateUser));
+        }
+
+        [HttpPost("DeleteUser")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser([FromBody] string Id)
+        {
+            return Ok(await _userService.DeleteUser(Id));
+        }
+    }
+}
