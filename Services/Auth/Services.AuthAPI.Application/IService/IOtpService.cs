@@ -1,5 +1,5 @@
-﻿using Services.AuthAPI.Domain.Entities;
-using Services.AuthAPI.Shared.Models.Dto.Otp;
+﻿using Services.AuthAPI.Application.Models.Dto.Otp;
+using Services.AuthAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

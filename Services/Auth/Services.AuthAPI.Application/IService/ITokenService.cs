@@ -1,5 +1,5 @@
-﻿using Services.AuthAPI.Domain.Entities;
-using Services.AuthAPI.Shared.Models.Dto.Token;
+﻿using Services.AuthAPI.Application.Models.Dto.Token;
+using Services.AuthAPI.Domain.Entities;
 
 namespace Services.AuthAPI.Application.IService
 {

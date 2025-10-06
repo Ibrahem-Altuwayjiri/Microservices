@@ -1,7 +1,7 @@
-﻿using Services.AuthAPI.Shared.Models.Dto;
-using Services.AuthAPI.Shared.Models.Dto.Abstract;
-using Services.AuthAPI.Shared.Models.Dto.Otp;
-using Services.AuthAPI.Shared.Models.Dto.Token;
+﻿using Services.AuthAPI.Application.Models.Dto;
+using Services.AuthAPI.Application.Models.Dto.Abstract;
+using Services.AuthAPI.Application.Models.Dto.Otp;
+
 
 namespace Services.AuthAPI.Application.IService
 {

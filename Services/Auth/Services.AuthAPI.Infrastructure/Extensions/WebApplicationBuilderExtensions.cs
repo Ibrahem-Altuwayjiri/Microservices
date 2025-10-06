@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Services.AuthAPI.Infrastructure.Utilities;
+using Services.AuthAPI.Infrastructure.Configuration;
 using System.Text;
 
 namespace Services.AuthAPI.Infrastructure.Extensions

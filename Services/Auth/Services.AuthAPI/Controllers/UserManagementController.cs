@@ -2,11 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.AuthAPI.Application.IService;
-using Services.AuthAPI.Application.Service;
-using Services.AuthAPI.Shared.Models.Dto;
-using Services.AuthAPI.Shared.Models.Dto.User;
-using System.Text;
-using System.Text.Json;
+using Services.AuthAPI.Application.Models.Dto.User;
+
 
 namespace Services.AuthAPI.Controllers
 {

@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{416DC639-B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.AuthAPI", "Services\Auth\Services.AuthAPI\Services.AuthAPI.csproj", "{E0F588C7-DB7A-80CD-DF51-EE615D58190F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.AuthAPI.Domain", "Services\Auth\Services.AuthAPI.Domain\Services.AuthAPI.Domain.csproj", "{FF512357-B467-4D1A-8DFC-40528204712A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Auth.Domain", "Services\Auth\Services.AuthAPI.Domain\Services.Auth.Domain.csproj", "{FF512357-B467-4D1A-8DFC-40528204712A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.AuthAPI.Infrastructure", "Services\Auth\Services.AuthAPI.Infrastructure\Services.AuthAPI.Infrastructure.csproj", "{E91F286C-463F-46F7-8FF5-EC0AD0204EC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Auth.Infrastructure", "Services\Auth\Services.AuthAPI.Infrastructure\Services.Auth.Infrastructure.csproj", "{E91F286C-463F-46F7-8FF5-EC0AD0204EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.AuthAPI.Shared", "Services\Auth\Services.AuthAPI.Shared\Services.AuthAPI.Shared.csproj", "{D8B17680-17E4-415C-82F6-C00E5AD45284}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Auth.Shared", "Services\Auth\Services.AuthAPI.Shared\Services.Auth.Shared.csproj", "{D8B17680-17E4-415C-82F6-C00E5AD45284}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.AuthAPI.Application", "Services\Auth\Services.AuthAPI.Application\Services.AuthAPI.Application.csproj", "{E36DEB70-D71C-DFF2-7A4C-81F8168031D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Auth.Application", "Services\Auth\Services.AuthAPI.Application\Services.Auth.Application.csproj", "{E36DEB70-D71C-DFF2-7A4C-81F8168031D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

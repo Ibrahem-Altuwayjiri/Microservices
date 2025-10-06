@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Services.AuthAPI.Application.IService;
+using Services.AuthAPI.Application.Models.Dto.Otp;
 using Services.AuthAPI.Domain.Entities;
+using Services.AuthAPI.Domain.IRepositories;
 using Services.AuthAPI.Infrastructure.Configuration.ExceptionHandlers;
 using Services.AuthAPI.Infrastructure.Helper;
-using Services.AuthAPI.Infrastructure.IRepositories;
-using Services.AuthAPI.Infrastructure.Utilities;
-using Services.AuthAPI.Shared.Models.Dto.Otp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.AuthAPI.Application.Service
 {

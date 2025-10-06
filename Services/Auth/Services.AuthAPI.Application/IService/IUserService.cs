@@ -1,9 +1,5 @@
-﻿using Services.AuthAPI.Shared.Models.Dto.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Services.AuthAPI.Application.Models.Dto.User;
+
 
 namespace Services.AuthAPI.Application.IService
 {

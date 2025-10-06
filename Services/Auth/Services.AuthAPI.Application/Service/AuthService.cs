@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Services.AuthAPI.Application.IService;
+using Services.AuthAPI.Application.Models.Dto;
+using Services.AuthAPI.Application.Models.Dto.Abstract;
+using Services.AuthAPI.Application.Models.Dto.Otp;
 using Services.AuthAPI.Domain.Entities;
+using Services.AuthAPI.Domain.IRepositories;
 using Services.AuthAPI.Infrastructure.Cache;
+using Services.AuthAPI.Infrastructure.Configuration;
 using Services.AuthAPI.Infrastructure.Configuration.ExceptionHandlers;
-using Services.AuthAPI.Infrastructure.Data;
-using Services.AuthAPI.Infrastructure.IRepositories;
-using Services.AuthAPI.Infrastructure.Utilities;
-using Services.AuthAPI.Shared.Models.Dto;
-using Services.AuthAPI.Shared.Models.Dto.Abstract;
-using Services.AuthAPI.Shared.Models.Dto.Otp;
 using System.DirectoryServices.AccountManagement;
 
 
