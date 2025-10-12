@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Auth.Infrastructure.Repositories
+namespace Services.Email.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

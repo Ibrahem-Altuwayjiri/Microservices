@@ -10,6 +10,7 @@ using Services.Email.Domain.IRepositories;
 using Services.Email.Infrastructure.Configuration.ExceptionHandlers;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -37,12 +38,14 @@ namespace Services.Email.Application.Service
             var model = _mapper.Map<Template>(createTemplate);
             var template = await _unitOfWork.TemplateRepository.Add(model);
 
-            var templateDetails = _mapper.Map<TemplateDetails>(template.TemplateDetails);
+            var templateDetails = _mapper.Map<TemplateDetails>(createTemplate.TemplateDetails);
 
             var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
-            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Type.Equals("sub")).Value;
+            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Properties.Values.Any(x => x.Equals("sub")))?.Value;
+
 
             templateDetails.CreateBy = userId;
+            templateDetails.TemplateId = template.Id;
             await _unitOfWork.TemplateDetailsRepository.Add(templateDetails);
             await _unitOfWork.CompletedAsync();
 
@@ -79,7 +82,7 @@ namespace Services.Email.Application.Service
                 throw new RestfulException("Not Found Template", RestfulStatusCodes.NotFound);
 
             template.Name = updateTemplate.Name;
-            template.VersionNumber += template.VersionNumber;
+            template.VersionNumber += 1;
 
             await _unitOfWork.TemplateRepository.Update(template);
 
@@ -88,7 +91,7 @@ namespace Services.Email.Application.Service
             newTemplateDetails.TemplateId = template.Id;
 
             var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
-            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Type.Equals("sub")).Value;
+            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Properties.Values.Any(x => x.Equals("sub")))?.Value;
 
             newTemplateDetails.CreateBy = userId;
 

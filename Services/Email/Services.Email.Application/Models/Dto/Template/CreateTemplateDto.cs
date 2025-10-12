@@ -13,6 +13,7 @@ namespace Services.Email.Application.Models.Dto.Template
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         public CreateTemplateDetailsDto TemplateDetails { get; set; }
     }
 }

@@ -13,7 +13,11 @@ namespace Services.Email.Domain.Entities
                        opt => opt.MapFrom(src => src.TemplateDetails.FirstOrDefault(td => td.IsActive)))
             .ReverseMap();
 
-            CreateMap<Template, CreateTemplateDto>().ReverseMap();
+            CreateMap<CreateTemplateDto, Template>()
+                .ForMember(dest => dest.TemplateDetails, opt => opt.Ignore());
+
+            CreateMap<Template, CreateTemplateDto>();
+            
             CreateMap<Template, UpdateTemplateDto>().ReverseMap();
         }
     }

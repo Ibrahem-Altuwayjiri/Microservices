@@ -27,7 +27,7 @@ namespace Services.Auth.Application.Service
         private readonly string JWTIssuer;
         private readonly string JWTSecret;
 
-        private readonly int TokenExpirationInMinutes = 10;
+        private readonly int TokenExpirationInMinutes = 10000;
         private readonly int RefreshTokenExpirationInHours = 10;
 
         public TokenService(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)

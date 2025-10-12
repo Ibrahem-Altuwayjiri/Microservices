@@ -42,10 +42,14 @@ namespace Services.Email.Application.Service
            var entity = _mapper.Map<EmailDetails>(emailDetails);
 
             var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
-            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Type.Equals("sub")).Value;
+            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Properties.Values.Any(x => x.Equals("sub")))?.Value;
 
-            entity.SenderInfo.UserId = userId;
-            entity.SenderInfo.ClientIp = IpHelper.GetClientIp(_httpContextAccessor.HttpContext);
+
+            entity.SenderInfo = new SenderInfo
+            {
+                UserId = userId,
+                ClientIp = IpHelper.GetClientIp(_httpContextAccessor.HttpContext)
+            };
 
             await _unitOfWork.EmailDetailsRepository.Add(entity);
             await _unitOfWork.CompletedAsync();
