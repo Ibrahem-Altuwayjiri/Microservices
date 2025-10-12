@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Email.Application.IService;
+using Services.Email.Application.Job;
 using Services.Email.Application.Models.Abstract;
 using Services.Email.Application.Models.Dto.EmailDetails;
 
@@ -13,13 +14,14 @@ namespace Services.Email.API.Controllers
     public class EmailController : ControllerBase
     {
         private readonly IEmailService _emailService;
+        private readonly EmailSenderJob _emailSenderJob;
         private ResponseDto _response;
 
-        public EmailController(IEmailService emailService)
+        public EmailController(IEmailService emailService, EmailSenderJob emailSenderJob)
         {
             _emailService = emailService;
             _response = new ResponseDto();
-
+            _emailSenderJob = emailSenderJob;
         }
 
 
@@ -30,6 +32,9 @@ namespace Services.Email.API.Controllers
                 return BadRequest(ModelState);
 
             await _emailService.CreateEmail(EmailDetails);
+
+            await _emailSenderJob.EnqueueAsync();
+
             return Ok(_response);
         }
     }

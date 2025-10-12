@@ -23,7 +23,7 @@ namespace Services.Email.Application.Models.Dto.EmailDetails
         [Required]
         public CreateEmailContentDto EmailContent { get; set; }
         public List<CreateAttachmentsDto> Attachments { get; set; }
-        public DateTime? ScheduleDate { get; set; } = DateTime.Now;
+        public DateTime? ScheduleDate { get; set; } = DateTime.Now.ToLocalTime();
 
     }
 }

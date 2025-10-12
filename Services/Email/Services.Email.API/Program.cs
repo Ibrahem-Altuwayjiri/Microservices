@@ -4,6 +4,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
 using Services.Email.Application.IService;
+using Services.Email.Application.Job;
 using Services.Email.Application.Mapper;
 using Services.Email.Application.Service;
 using Services.Email.Domain.DBContext;
@@ -91,6 +92,11 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<TemplateDetailsProfile>();
     cfg.AddProfile<TemplateProfile>();
 });
+
+builder.Services.AddSingleton<EmailSenderJob>();
+builder.Services.AddHostedService(provider => provider.GetRequiredService<EmailSenderJob>());
+
+builder.Services.AddHostedService<ScheduledEmailSenderJob>();
 
 
 // Inject/Initialize static utilities

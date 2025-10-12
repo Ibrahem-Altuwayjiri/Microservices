@@ -59,7 +59,7 @@ namespace Services.Email.Application.Service
 
         public Task<IEnumerable<EmailDetails>> GetUnSentEmails()
         {
-            var emails = _unitOfWork.EmailDetailsRepository.FindWithInclude(m => m.IsSend == false && m.ScheduleDate <= DateTime.Now
+            var emails = _unitOfWork.EmailDetailsRepository.FindWithInclude(m => m.IsSend == false && m.ScheduleDate <= DateTime.Now.ToLocalTime()
                                                                             , e => e.SenderInfo
                                                                             , e => e.EmailRecipients
                                                                             , e => e.EmailContent
@@ -79,12 +79,17 @@ namespace Services.Email.Application.Service
             if (emails == null)
                 return;
 
-            var emailId = 0;
+            foreach (var email in emails)
+            {
+                await SendAsync(email);
+            }
+
+        }
+
+        private async Task SendAsync(EmailDetails email)
+        {
             try
             {
-                foreach (var email in emails)
-                {
-                    emailId = email.Id;
 
                     var template = await _templateService.GetTemplate(email.TemplateId);
                     var emailTemplate = TemplateUtil.GetEmailTemplate(_mapper.Map<TemplateDetails>(template.templateDetails)); // get HTML template after adding base email body (header img , footer img, text color)
@@ -102,25 +107,25 @@ namespace Services.Email.Application.Service
                         Content = emailContent
                     });
                     email.IsSend = true;
-                    email.SendDate = DateTime.Now;
+                    email.SendDate = DateTime.Now.ToLocalTime();
                     await _unitOfWork.EmailDetailsRepository.Update(email);
                     await _unitOfWork.CompletedAsync();
-                }
                 
+
             }
             catch (Exception e)
             {
-                var currentEmail = await _unitOfWork.EmailDetailsRepository.FindOneOrDefault(m => m.Id == emailId);
+                var currentEmail = await _unitOfWork.EmailDetailsRepository.FindOneOrDefault(m => m.Id == email.Id);
                 if (currentEmail != null)
                 {
-                    currentEmail.TryNum += currentEmail.TryNum;
-                    currentEmail.LastTrySend = DateTime.UtcNow;
+                    currentEmail.TryNum += 1;
+                    currentEmail.LastTrySend = DateTime.UtcNow.ToLocalTime();
                     await _unitOfWork.EmailDetailsRepository.Update(currentEmail);
                 }
                 await _unitOfWork.EmailErrorLogRepository.Add(new EmailErrorLog
                 {
-                    Date = DateTime.UtcNow,
-                    EmailDetailsId = emailId,
+                    Date = DateTime.UtcNow.ToLocalTime(),
+                    EmailDetailsId = email.Id,
                     Message = e.Message
                 });
 
@@ -128,7 +133,6 @@ namespace Services.Email.Application.Service
 
 
             }
-
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Services.Email.Domain.Entities
         [ForeignKey("EmailDetails")]
         public int EmailDetailsId { get; set; }
         public EmailDetails EmailDetails { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now.ToLocalTime();
         public string Message { get; set; }
     }
 }
