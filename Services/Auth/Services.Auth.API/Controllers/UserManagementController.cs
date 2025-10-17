@@ -9,6 +9,7 @@ namespace Services.AuthAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserManagementController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -33,7 +34,7 @@ namespace Services.AuthAPI.Controllers
         }
 
         [HttpPost("DeleteUser")]
-        [Authorize]
+        
         public async Task<IActionResult> DeleteUser([FromBody] string Id)
         {
             return Ok(await _userService.DeleteUser(Id));
