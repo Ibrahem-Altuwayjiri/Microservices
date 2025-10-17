@@ -29,6 +29,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Email.Shared", "Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Email.API", "Services\Email\Services.Email.API\Services.Email.API.csproj", "{9B3A416B-1B1D-43BD-B933-0D20F96EE352}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "File Management", "File Management", "{61B40595-3C65-41A4-B169-B5611E5E6073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.FileManagement.Infrastructure", "Services\FileManagement\Services.FileManagement.Infrastructure\Services.FileManagement.Infrastructure.csproj", "{42016FD6-9509-4378-BB77-F0888124BC21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.FileManagement.Domain", "Services\FileManagement\Services.FileManagement.Domain\Services.FileManagement.Domain.csproj", "{AE6403D5-C65C-419E-A8F5-1A0E9987D9AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.FileManagement.Application", "Services\FileManagement\Services.FileManagement.Application\Services.FileManagement.Application.csproj", "{2BED4105-4FBE-4E46-B0CA-FA806659091C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.FileManagement.API", "Services\FileManagement\Services.FileManagement.API\Services.FileManagement.API.csproj", "{79338B66-2893-4CEE-BFB2-85FA72FE3D2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +85,22 @@ Global
 		{9B3A416B-1B1D-43BD-B933-0D20F96EE352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B3A416B-1B1D-43BD-B933-0D20F96EE352}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B3A416B-1B1D-43BD-B933-0D20F96EE352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42016FD6-9509-4378-BB77-F0888124BC21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42016FD6-9509-4378-BB77-F0888124BC21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42016FD6-9509-4378-BB77-F0888124BC21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42016FD6-9509-4378-BB77-F0888124BC21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE6403D5-C65C-419E-A8F5-1A0E9987D9AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE6403D5-C65C-419E-A8F5-1A0E9987D9AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE6403D5-C65C-419E-A8F5-1A0E9987D9AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE6403D5-C65C-419E-A8F5-1A0E9987D9AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BED4105-4FBE-4E46-B0CA-FA806659091C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BED4105-4FBE-4E46-B0CA-FA806659091C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BED4105-4FBE-4E46-B0CA-FA806659091C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BED4105-4FBE-4E46-B0CA-FA806659091C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79338B66-2893-4CEE-BFB2-85FA72FE3D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79338B66-2893-4CEE-BFB2-85FA72FE3D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79338B66-2893-4CEE-BFB2-85FA72FE3D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79338B66-2893-4CEE-BFB2-85FA72FE3D2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +118,11 @@ Global
 		{AB067083-C1E3-4A03-ABF1-ED14413FCF57} = {F91B2FA8-0316-44C3-A5C7-593024E37C5C}
 		{0EB014E5-38F8-4813-86FE-61C81A0A0135} = {F91B2FA8-0316-44C3-A5C7-593024E37C5C}
 		{9B3A416B-1B1D-43BD-B933-0D20F96EE352} = {F91B2FA8-0316-44C3-A5C7-593024E37C5C}
+		{61B40595-3C65-41A4-B169-B5611E5E6073} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{42016FD6-9509-4378-BB77-F0888124BC21} = {61B40595-3C65-41A4-B169-B5611E5E6073}
+		{AE6403D5-C65C-419E-A8F5-1A0E9987D9AE} = {61B40595-3C65-41A4-B169-B5611E5E6073}
+		{2BED4105-4FBE-4E46-B0CA-FA806659091C} = {61B40595-3C65-41A4-B169-B5611E5E6073}
+		{79338B66-2893-4CEE-BFB2-85FA72FE3D2D} = {61B40595-3C65-41A4-B169-B5611E5E6073}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7D5012E-17CA-4872-AA01-BC09D9F8332D}

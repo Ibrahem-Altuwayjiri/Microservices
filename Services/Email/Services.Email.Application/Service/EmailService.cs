@@ -59,7 +59,8 @@ namespace Services.Email.Application.Service
 
         public Task<IEnumerable<EmailDetails>> GetUnSentEmails()
         {
-            var emails = _unitOfWork.EmailDetailsRepository.FindWithInclude(m => m.IsSend == false && m.ScheduleDate <= DateTime.Now.ToLocalTime()
+            var DateTimeNow = DateTime.UtcNow.ToLocalTime();
+            var emails = _unitOfWork.EmailDetailsRepository.FindWithInclude(m => m.IsSend == false && m.ScheduleDate <= DateTimeNow
                                                                             , e => e.SenderInfo
                                                                             , e => e.EmailRecipients
                                                                             , e => e.EmailContent
