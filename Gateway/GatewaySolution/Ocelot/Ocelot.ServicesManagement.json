@@ -1,0 +1,523 @@
+{
+  "Routes": [
+    // serviceInfo Service
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/ServiceInfo/Create",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/Create",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/ServiceInfo/Update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/Update",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/ServiceInfo/GetAll",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/GetAll",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/ServiceInfo/getAllWithAudit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/getAllWithAudit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/ServiceInfo/getById/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/getById/{Id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/ServiceInfo/activate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/activate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/ServiceInfo/deactivate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/deactivate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    //end points for serviceInfo Service
+
+    // ServiceStructure Service
+
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/MainService/Create",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/MainService/Create",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/MainService/Update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/MainService/Update",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/MainService/GetAll",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/MainService/GetAll",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/MainService/getAllWithAudit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/MainService/getAllWithAudit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/MainService/getById/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/MainService/getById/{Id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/MainService/activate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/MainService/activate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/MainService/deactivate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/MainService/deactivate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+
+    // end points for ServiceStructure Service
+    // SubService Service
+
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubService/Create",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubService/Create",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubService/Update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubService/Update",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubService/GetAll",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubService/GetAll",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubService/getAllWithAudit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubService/getAllWithAudit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubService/getById/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubService/getById/{Id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubService/activate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubService/activate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubService/deactivate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubService/deactivate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+
+    // end points for SubService Service
+
+    // SubSubService Service
+
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubSubService/Create",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubSubService/Create",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubSubService/Update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubSubService/Update",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubSubService/GetAll",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubSubService/GetAll",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubSubService/getAllWithAudit",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubSubService/getAllWithAudit",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubSubService/getById/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubSubService/getById/{Id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubSubService/activate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubSubService/activate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "ServicesManagement",
+      "DownstreamPathTemplate": "/api/SubSubService/deactivate/{Id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/SubSubService/deactivate/{Id}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+   
+  ]
+}

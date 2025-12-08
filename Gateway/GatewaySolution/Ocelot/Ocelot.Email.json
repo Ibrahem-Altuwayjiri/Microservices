@@ -1,0 +1,94 @@
+{
+  "Routes": [
+    {
+      "Key": "Email",
+      "DownstreamPathTemplate": "/api/Email/Send",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5077
+          //"Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Email/Send",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    // Template Service
+    {
+      "Key": "Email",
+      "DownstreamPathTemplate": "/api/Template/Get/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5077
+          //"Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Email/Template/Get/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "Email",
+      "DownstreamPathTemplate": "/api/Template/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5077
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Template/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "Email",
+      "DownstreamPathTemplate": "/api/Template/CreateTemplate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5077
+          //"Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Email/Template/CreateTemplate",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "Key": "Email",
+      "DownstreamPathTemplate": "/api/Template/UpdateTemplate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5077
+          //"Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Email/Template/UpdateTemplate",
+      "UpstreamHttpMethod": [ "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+  ]
+}
