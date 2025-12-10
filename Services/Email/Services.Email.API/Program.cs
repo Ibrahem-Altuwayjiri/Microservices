@@ -35,7 +35,13 @@ Log.Logger = new LoggerConfiguration()
 // Add services to the container.
 builder.Services.AddDbContext<EmailDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    
+    option.UseSqlServer(
+       builder.Configuration.GetConnectionString("DefaultConnection"),
+       b =>
+       {
+           b.MigrationsAssembly("Services.Email.Infrastructure");
+       });
 });
 
 builder.Services.AddControllers();

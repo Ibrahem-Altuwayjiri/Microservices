@@ -9,7 +9,7 @@ using Services.Email.Domain.DBContext;
 
 #nullable disable
 
-namespace Services.Email.Domain.Migrations
+namespace Services.Email.Infrastructure.Migrations
 {
     [DbContext(typeof(EmailDbContext))]
     [Migration("20251011200346_init")]

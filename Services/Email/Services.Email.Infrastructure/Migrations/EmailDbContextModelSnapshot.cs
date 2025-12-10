@@ -8,7 +8,7 @@ using Services.Email.Domain.DBContext;
 
 #nullable disable
 
-namespace Services.Email.Domain.Migrations
+namespace Services.Email.Infrastructure.Migrations
 {
     [DbContext(typeof(EmailDbContext))]
     partial class EmailDbContextModelSnapshot : ModelSnapshot
@@ -21,6 +21,47 @@ namespace Services.Email.Domain.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Services.Email.Domain.DBContext.CustomAutoHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Changed")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("ClientIp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Kind")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RowId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomAutoHistory");
+                });
 
             modelBuilder.Entity("Services.Email.Domain.Entities.Attachments", b =>
                 {
@@ -255,11 +296,15 @@ namespace Services.Email.Domain.Migrations
                     b.Property<int>("VersionNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreateByClientIp")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateDtae")
+                    b.Property<string>("CreateByUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstLineColor")
@@ -291,6 +336,15 @@ namespace Services.Email.Domain.Migrations
 
                     b.Property<string>("TitleColor")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdateByClientIp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdateByUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("TemplateId", "VersionNumber");
 
