@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Auth.Domain.Data
+namespace Services.FileManagement.Domain.DBContext
 {
     public class CustomAutoHistory : AutoHistory
     {

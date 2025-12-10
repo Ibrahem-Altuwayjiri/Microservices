@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Services.FileManagement.Infrastructure.Helper
 {
-    public static class IpHelper
+    public static class ClientInfoHelper
     {
         public static string GetClientIp(HttpContext context)
         {
@@ -19,6 +20,12 @@ namespace Services.FileManagement.Infrastructure.Helper
             }
 
             return ip ?? "Unknown";
+        }
+        public static string GetUserId(HttpContext context)
+        {
+            var userIdClaim = context?.User?.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Properties.Values.Any(x => x.Equals("sub")))?.Value;
+            return userId ?? "Unknown";
         }
     }
 }

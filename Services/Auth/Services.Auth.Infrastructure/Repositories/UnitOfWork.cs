@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Services.Auth.Domain.Data;
 using Services.Auth.Domain.IRepositories;
 using Services.Auth.Infrastructure.Helper;
-using Services.Email.Domain.DBContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;

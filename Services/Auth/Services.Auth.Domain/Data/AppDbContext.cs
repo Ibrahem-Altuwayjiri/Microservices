@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Services.Auth.Domain.Entities;
-using Services.Email.Domain.DBContext;
 
 
 namespace Services.Auth.Domain.Data
