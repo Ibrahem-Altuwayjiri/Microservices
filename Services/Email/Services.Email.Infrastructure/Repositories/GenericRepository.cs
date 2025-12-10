@@ -25,7 +25,6 @@ namespace Services.Email.Infrastructure.Repositories
         public async Task<T> Add(T entity)
         {
             await dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
         public async Task<List<T>> AddRange(List<T> entities)
@@ -88,8 +87,6 @@ namespace Services.Email.Infrastructure.Repositories
         public async Task<T> Update(T entity)
         {
             dbSet.Update(entity);
-
-            await _context.SaveChangesAsync();
 
             return entity;
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Services.Email.Domain.Migrations
+namespace Services.Email.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

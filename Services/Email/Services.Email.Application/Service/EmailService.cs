@@ -48,7 +48,7 @@ namespace Services.Email.Application.Service
             entity.SenderInfo = new SenderInfo
             {
                 UserId = userId,
-                ClientIp = IpHelper.GetClientIp(_httpContextAccessor.HttpContext)
+                ClientIp = ClientInfoHelper.GetClientIp(_httpContextAccessor.HttpContext)
             };
 
             await _unitOfWork.EmailDetailsRepository.Add(entity);

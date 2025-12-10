@@ -40,7 +40,7 @@ namespace Services.FileManagement.Application.Service
 
             var  uploaderInfo = await  _unitOfWork.UploaderInfoRepository.Add(new UploaderInfo
             {
-                ClientIp = IpHelper.GetClientIp(_httpContextAccessor.HttpContext),
+                ClientIp = ClientInfoHelper.GetClientIp(_httpContextAccessor.HttpContext),
                 UserId = userId
             });
 

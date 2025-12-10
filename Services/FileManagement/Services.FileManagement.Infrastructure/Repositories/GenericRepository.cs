@@ -25,13 +25,11 @@ namespace Services.FileManagement.Infrastructure.Repositories
         public async Task<T> Add(T entity)
         {
             await dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
         public async Task<List<T>> AddRange(List<T> entities)
         {
             await dbSet.AddRangeAsync(entities);
-            await _context.SaveChangesAsync();
             return entities;
         }
         public async Task<T> FindOneOrDefault(Expression<Func<T, bool>> expression) => await dbSet.FirstOrDefaultAsync(expression);
@@ -89,7 +87,6 @@ namespace Services.FileManagement.Infrastructure.Repositories
         {
             dbSet.Update(entity);
 
-            await _context.SaveChangesAsync();
 
             return entity;
         }

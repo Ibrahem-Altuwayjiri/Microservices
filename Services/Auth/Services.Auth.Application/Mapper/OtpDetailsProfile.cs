@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Services.Auth.Application.Models.Dto.Otp;
 using Services.Auth.Domain.Entities;
 
 
@@ -8,7 +9,7 @@ namespace Services.Auth.Application.Mapper
     {
         public OtpDetailsProfile()
         {
-            CreateMap<OtpDetails, OtpDetailsProfile>().ReverseMap();
+            CreateMap<OtpDetails, OtpDetailsDto>().ReverseMap();
         }
     }
 }

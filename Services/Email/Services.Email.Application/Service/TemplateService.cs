@@ -40,11 +40,6 @@ namespace Services.Email.Application.Service
 
             var templateDetails = _mapper.Map<TemplateDetails>(createTemplate.TemplateDetails);
 
-            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
-            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Properties.Values.Any(x => x.Equals("sub")))?.Value;
-
-
-            templateDetails.CreateBy = userId;
             templateDetails.TemplateId = template.Id;
             await _unitOfWork.TemplateDetailsRepository.Add(templateDetails);
             await _unitOfWork.CompletedAsync();
@@ -90,10 +85,6 @@ namespace Services.Email.Application.Service
             newTemplateDetails.VersionNumber = template.VersionNumber;
             newTemplateDetails.TemplateId = template.Id;
 
-            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
-            var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Properties.Values.Any(x => x.Equals("sub")))?.Value;
-
-            newTemplateDetails.CreateBy = userId;
 
             //deactivate old template details
             var oldTemplateDetails = await _unitOfWork.TemplateDetailsRepository.Find(m => m.TemplateId == template.Id && m.IsActive);

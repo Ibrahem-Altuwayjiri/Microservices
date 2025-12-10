@@ -23,10 +23,14 @@ namespace Services.Email.Domain.DBContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TemplateDetails>()
                 .HasKey(t => new { t.TemplateId, t.VersionNumber }); // Composite Key
+
+            // Register AutoHistory using custom CLR type so history entries include UserId and ClientIp
+            modelBuilder.EnableAutoHistory<CustomAutoHistory>(options => { });
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

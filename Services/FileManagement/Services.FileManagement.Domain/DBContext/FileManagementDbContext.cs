@@ -18,7 +18,18 @@ namespace Services.FileManagement.Domain.DBContext
 
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
-    
+
+
+
+
+            // Register AutoHistory using custom CLR type so history entries include UserId and ClientIp
+            modelBuilder.EnableAutoHistory<CustomAutoHistory>(options => { });
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

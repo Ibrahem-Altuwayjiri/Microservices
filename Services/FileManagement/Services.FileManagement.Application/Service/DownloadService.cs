@@ -76,10 +76,9 @@ namespace Services.FileManagement.Application.Service
 
             var uploaderInfo = await _unitOfWork.DownloaderInfoRepository.Add(new DownloaderInfo
             {
-                ClientIp = IpHelper.GetClientIp(_httpContextAccessor.HttpContext),
-                UserId = userId,
                 MediaFileId = MediaFileId
             });
+            await _unitOfWork.CompletedAsync();
         }
     }
 }

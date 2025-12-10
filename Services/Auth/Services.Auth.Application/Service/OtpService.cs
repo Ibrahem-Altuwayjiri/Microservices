@@ -30,10 +30,10 @@ namespace Services.Auth.Application.Service
             var optCode = GenerateOtpCode();
             var otpDetails = new OtpDetails
             {
-                UserId = applicationUser.Id,
+                CreateByUserId = applicationUser.Id,
                 HashedOtp = HashOtp(optCode),
                 AccessKey = Guid.NewGuid().ToString(),
-                RequestIp = IpHelper.GetClientIp(_httpContextAccessor.HttpContext),
+                CreateByClientIp = ClientInfoHelper.GetClientIp(_httpContextAccessor.HttpContext),
                 ExpiresAt = DateTime.UtcNow.AddMinutes(OtpExpirationInMinutes),
             };
 
@@ -67,7 +67,7 @@ namespace Services.Auth.Application.Service
 
         public async Task<bool> VerifyOTP(OtpVerificationDto otpVerificationDto)
         {
-            string clientIp = IpHelper.GetClientIp(_httpContextAccessor.HttpContext);
+            string clientIp = ClientInfoHelper.GetClientIp(_httpContextAccessor.HttpContext);
             string clintOtpHashed = HashOtp(otpVerificationDto.Otp.Trim());
 
             bool IsMatched = false;
@@ -79,7 +79,7 @@ namespace Services.Auth.Application.Service
             if(otpInDB == null || otpInDB.IsExpired)
                 throw new RestfulException("Invalid or expired OTP", RestfulStatusCodes.Forbidden);
 
-            if (otpInDB.RequestIp != clientIp || otpInDB.AttemptCount > 3)
+            if (otpInDB.CreateByClientIp != clientIp || otpInDB.AttemptCount > 3)
             {
                 otpInDB.IsValid = false;
                 IsMatched = false;

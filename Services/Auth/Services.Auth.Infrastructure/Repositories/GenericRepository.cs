@@ -25,7 +25,6 @@ namespace Services.Auth.Infrastructure.Repositories
         public async Task<T> Add(T entity)
         {
             await dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
         public async Task<T> FindOneOrDefault(Expression<Func<T, bool>> expression) => await dbSet.FirstOrDefaultAsync(expression);
@@ -58,7 +57,6 @@ namespace Services.Auth.Infrastructure.Repositories
         {
             dbSet.Update(entity);
 
-            await _context.SaveChangesAsync();
 
             return entity;
         }

@@ -76,6 +76,7 @@ namespace Services.Auth.Application.Service
 
             user.LastLogin = DateTime.Now.ToLocalTime();
             await _unitOfWork.ApplicationUsersRepository.Update(user);
+            await _unitOfWork.CompletedAsync();
 
 
             var otp = await _otpService.GenerateOtp(user);
@@ -94,7 +95,7 @@ namespace Services.Auth.Application.Service
                 throw new RestfulException("Invalid or expired OTP", RestfulStatusCodes.Forbidden);
 
             var otpDetails = await _unitOfWork.OtpDetailsRepository.FindOneOrDefault(o => o.AccessKey == otpVerificationDto.AccessKey);
-            var user = await _unitOfWork.ApplicationUsersRepository.FindOneOrDefault(u => u.Id == otpDetails.UserId);
+            var user = await _unitOfWork.ApplicationUsersRepository.FindOneOrDefault(u => u.Id == otpDetails.CreateByUserId);
 
             var jwtToken = await _jwtTokenGenerator.Authentication(user);
 
