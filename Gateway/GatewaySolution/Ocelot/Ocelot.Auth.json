@@ -1,0 +1,20 @@
+{
+  "Routes": [
+    {
+      "SwaggerKey": "Auth",
+      "DownstreamPathTemplate": "/api/Auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5117
+          //"Port": 7002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Auth/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true }
+    }
+    
+  ]
+}

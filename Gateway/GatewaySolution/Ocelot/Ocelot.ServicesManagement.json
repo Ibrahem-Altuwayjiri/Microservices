@@ -1,0 +1,25 @@
+{
+  "Routes": [
+    // serviceInfo Service
+    {
+      "SwaggerKey": "ServiceInfo",
+      "DownstreamPathTemplate": "/api/ServiceInfo/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+          //"Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ServiceInfo/{everything}",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+
+   
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "Routes": [
+    {
+      "SwaggerKey": "FileManagement",
+      "DownstreamPathTemplate": "/api/FileManagement/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5075
+          //"Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/FileManagement/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+   
+  ]
+}

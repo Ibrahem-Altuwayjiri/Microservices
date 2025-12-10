@@ -7,7 +7,7 @@ using Services.Auth.Application.Models.Dto.User;
 
 namespace Services.AuthAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Auth/[controller]")]
     [ApiController]
     [Authorize]
     public class UserManagementController : ControllerBase

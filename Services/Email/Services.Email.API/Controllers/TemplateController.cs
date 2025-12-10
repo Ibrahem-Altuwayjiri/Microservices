@@ -7,7 +7,7 @@ using Services.Email.Application.Models.Dto.Template;
 
 namespace Services.Email.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Email/[controller]")]
     [ApiController]
     [Authorize]
     public class TemplateController : ControllerBase

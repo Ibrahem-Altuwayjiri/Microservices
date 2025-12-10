@@ -1,0 +1,23 @@
+{
+  "Routes": [
+    {
+      "SwaggerKey": "Email",
+      "DownstreamPathTemplate": "/api/Email/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5077
+          //"Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Email/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+    
+  ]
+}

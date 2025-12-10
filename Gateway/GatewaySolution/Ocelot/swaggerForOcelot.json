@@ -1,0 +1,63 @@
+{
+  "Routes": [
+    {
+      "SwaggerKey": "Auth",
+      "DownstreamSwaggerEndPoint": "http://localhost:5117/swagger/v1/swagger.json"
+    },
+    {
+      "SwaggerKey": "Email",
+      "DownstreamSwaggerEndPoint": "http://localhost:5077/swagger/v1/swagger.json"
+    },
+    {
+      "SwaggerKey": "FileManagement",
+      "DownstreamSwaggerEndPoint": "http://localhost:5075/swagger/v1/swagger.json"
+    },
+    {
+      "SwaggerKey": "ServiceInfo",
+      "DownstreamSwaggerEndPoint": "http://localhost:5228/swagger/v1/swagger.json"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "Auth",
+      "Config": [
+        {
+          "Name": "Auth API",
+          "Version": "v1",
+          "Url": "http://localhost:5117/swagger/v1/swagger.json"
+        }
+      ]
+    },
+   
+    {
+      "Key": "Email",
+      "Config": [
+        {
+          "Name": "Email API",
+          "Version": "v1",
+          "Url": "http://localhost:5077/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "FileManagement",
+      "Config": [
+        {
+          "Name": "FileManagement API",
+          "Version": "v1",
+          "Url": "http://localhost:5075/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "ServiceInfo",
+      "Config": [
+        {
+          "Name": "ServiceInfo API",
+          "Version": "v1",
+          "Url": "http://localhost:5228/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}
