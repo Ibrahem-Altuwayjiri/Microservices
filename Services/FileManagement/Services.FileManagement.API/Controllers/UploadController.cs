@@ -6,7 +6,7 @@ using Services.FileManagement.Application.Models.Abstract;
 
 namespace Services.FileManagement.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/FileManagement/[controller]")]
     [ApiController]
     public class UploadController : ControllerBase
     {

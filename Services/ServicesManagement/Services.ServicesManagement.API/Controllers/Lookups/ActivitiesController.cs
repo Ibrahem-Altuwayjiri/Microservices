@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.ServicesManagement.API.Controllers.Lookups
 {
-    [Route("api/[controller]")]
+    [Route("api/ServiceInfo/[controller]")]
     [ApiController]
     public class ActivitiesController : BaseApiController
     {

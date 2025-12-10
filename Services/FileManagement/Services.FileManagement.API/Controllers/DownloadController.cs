@@ -7,7 +7,7 @@ using Services.FileManagement.Application.Models.Dto.MediaFile;
 
 namespace Services.FileManagement.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/FileManagement/[controller]")]
     [ApiController]
     public class DownloadController : ControllerBase
     {

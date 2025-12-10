@@ -1,8 +1,8 @@
 {
   "Routes": [
     {
-      "Key": "FileManagement",
-      "DownstreamPathTemplate": "/api/Download/DownloadFile/{fileId}",
+      "SwaggerKey": "FileManagement",
+      "DownstreamPathTemplate": "/api/FileManagement/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -11,67 +11,13 @@
           //"Port": 7004
         }
       ],
-      "UpstreamPathTemplate": "/api/file/Download/DownloadFile/{fileId}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
-    },
-    {
-      "Key": "FileManagement",
-      "DownstreamPathTemplate": "/api/Download/DownloadFileAsBase64/{fileId}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5075
-          //"Port": 7004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/file/Download/DownloadFileAsBase64/{fileId}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
-    },
-    // Upload Service
-    {
-      "Key": "FileManagement",
-      "DownstreamPathTemplate": "/api/Upload/UploadFile",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5075
-          //"Port": 7004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/file/Upload/UploadFile",
-      "UpstreamHttpMethod": [ "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
-    },
-    {
-      "Key": "FileManagement",
-      "DownstreamPathTemplate": "/api/Upload/UploadFiles",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5075
-          //"Port": 7004
-        }
-      ],
-      "UpstreamPathTemplate": "/api/file/Upload/UploadFiles",
-      "UpstreamHttpMethod": [ "POST" ],
+      "UpstreamPathTemplate": "/api/FileManagement/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"
       }
     }
+   
   ]
 }

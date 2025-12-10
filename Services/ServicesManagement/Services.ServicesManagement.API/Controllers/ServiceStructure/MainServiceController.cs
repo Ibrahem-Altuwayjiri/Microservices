@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.ServicesManagement.API.Controllers.ServiceStructure
 {
-    [Route("api/[controller]")]
+    [Route("api/ServiceInfo/[controller]")]
     [ApiController]
     public class MainServiceController : BaseApiController
     {

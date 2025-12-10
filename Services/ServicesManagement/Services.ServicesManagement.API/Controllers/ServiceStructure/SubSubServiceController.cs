@@ -8,7 +8,7 @@ using Services.ServicesManagement.API.Controllers.Base;
 
 namespace Services.ServicesManagement.API.Controllers.ServiceStructure
 {
-    [Route("api/[controller]")]
+    [Route("api/ServiceInfo/[controller]")]
     [ApiController]
     public class SubSubServiceController : BaseApiController
     {

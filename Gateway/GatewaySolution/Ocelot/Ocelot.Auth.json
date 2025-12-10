@@ -1,8 +1,8 @@
 {
   "Routes": [
     {
-      "Key": "Auth",
-      "DownstreamPathTemplate": "/api/Auth/Login",
+      "SwaggerKey": "Auth",
+      "DownstreamPathTemplate": "/api/Auth/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -11,109 +11,10 @@
           //"Port": 7002
         }
       ],
-      "UpstreamPathTemplate": "/api/Auth/Login",
-      "UpstreamHttpMethod": [ "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true }
-    },
-    {
-      "Key": "Auth",
-      "DownstreamPathTemplate": "/api/Auth/VerifyOTP",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5117
-          //"Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/Auth/VerifyOTP",
-      "UpstreamHttpMethod": [ "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true }
-    },
-    {
-      "Key": "Auth",
-      "DownstreamPathTemplate": "/api/Auth/RefreshToken",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5117
-          //"Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/Auth/RefreshToken",
-      "UpstreamHttpMethod": [ "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true }
-    },
-    {
-      "Key": "Auth",
-      "DownstreamPathTemplate": "/api/Auth/RevokeToken",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5117
-          //"Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/Auth/RevokeToken",
-      "UpstreamHttpMethod": [ "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true }
-    },
-    // UserManagement Service
-    {
-      "Key": "Auth",
-      "DownstreamPathTemplate": "/api/UserManagement/CreateUser",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5117
-          //"Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/Auth/UserManagement/CreateUser",
+      "UpstreamPathTemplate": "/api/Auth/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
-    },
-    {
-      "Key": "Auth",
-      "DownstreamPathTemplate": "/api/UserManagement/UpdateUser",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5117
-          //"Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/Auth/UserManagement/UpdateUser",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
-    },
-    {
-      "Key": "Auth",
-      "DownstreamPathTemplate": "/api/UserManagement/DeleteUser",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5117
-          //"Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/Auth/UserManagement/DeleteUser",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
+      "HttpHandlerOptions": { "DangerousAcceptAnyServerCertificateValidator": true }
     }
+    
   ]
 }

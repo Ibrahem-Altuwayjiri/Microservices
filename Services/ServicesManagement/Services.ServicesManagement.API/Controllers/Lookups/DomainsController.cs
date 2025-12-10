@@ -7,7 +7,7 @@ using Services.ServicesManagement.API.Controllers.Base;
 
 namespace Services.ServicesManagement.API.Controllers.Lookups
 {
-    [Route("api/[controller]")]
+    [Route("api/ServiceInfo/[controller]")]
     [ApiController]
     public class DomainsController : BaseApiController
     {
