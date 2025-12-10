@@ -114,13 +114,13 @@ namespace Services.Auth.Application.Service
         {
             var token = new TokenDetails
             {
-                UserId = createToken.UserId,
+                CreateByUserId = createToken.UserId,
                 Token = createToken.Token,
                 TokenExpires = createToken.TokenExpires,
                 RefreshToken = createToken.RefreshToken,
                 RefreshTokenExpires = createToken.RefreshTokenExpires,
                 CreateDate = DateTime.UtcNow,
-                CreateByDeviceIP = IpHelper.GetClientIp(_httpContextAccessor.HttpContext),
+                CreateByClientIp = ClientInfoHelper.GetClientIp(_httpContextAccessor.HttpContext),
                 NumberOfUpdate = 0
             };
             await _unitOfWork.TokenDetailsRepository.Add(token);
@@ -143,10 +143,10 @@ namespace Services.Auth.Application.Service
 
         public async Task<AuthenticationDto> RefreshToken(AuthenticationDto authenticationDto)
         {
-            var clientDeviceIP = IpHelper.GetClientIp(_httpContextAccessor.HttpContext);
+            var clientDeviceIP = ClientInfoHelper.GetClientIp(_httpContextAccessor.HttpContext);
             var TokenDetails = await _unitOfWork.TokenDetailsRepository.FindOneOrDefault(m => m.Token == authenticationDto.Token 
                                                                                     && m.RefreshToken == authenticationDto.RefreshToken
-                                                                                    && m.CreateByDeviceIP == clientDeviceIP);
+                                                                                    && m.CreateByClientIp == clientDeviceIP);
             if(TokenDetails == null)
                 throw new RestfulException("Bad Request", RestfulStatusCodes.BadRequest);
             if(!TokenDetails.IsActive)
@@ -175,9 +175,9 @@ namespace Services.Auth.Application.Service
 
         public async Task RevokeToken(string Token)
         {
-            var clientDeviceIP = IpHelper.GetClientIp(_httpContextAccessor.HttpContext);
+            var clientDeviceIP = ClientInfoHelper.GetClientIp(_httpContextAccessor.HttpContext);
             var TokenDetails = await _unitOfWork.TokenDetailsRepository.FindOneOrDefault(m => m.Token == Token
-                                                                                    && m.CreateByDeviceIP == clientDeviceIP);
+                                                                                    && m.CreateByClientIp == clientDeviceIP);
             if (TokenDetails == null)
                 throw new RestfulException("Bad Request", RestfulStatusCodes.BadRequest);
 

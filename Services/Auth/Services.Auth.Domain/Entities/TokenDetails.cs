@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Auth.Domain.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -8,14 +9,17 @@ using System.Threading.Tasks;
 
 namespace Services.Auth.Domain.Entities
 {
-    public class TokenDetails
+    public class TokenDetails : ICreateEntity, IUpdateEntity
     {
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
-        public string CreateByDeviceIP { get; set; }
+        public string CreateByClientIp { get; set; }
         [ForeignKey("User")]
-        public string UserId { get; set; }
+        public string CreateByUserId { get; set; }
         public ApplicationUser User { get; set; }
+        public string? UpdateByUserId { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        public string? UpdateByClientIp { get; set; }
         public string Token { get; set; }
         public DateTime TokenExpires { get; set; }
         [NotMapped]

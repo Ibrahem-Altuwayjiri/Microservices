@@ -41,7 +41,12 @@ Log.Logger = new LoggerConfiguration()
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    option.UseSqlServer(
+      builder.Configuration.GetConnectionString("DefaultConnection"),
+      b =>
+      {
+          b.MigrationsAssembly("Services.Auth.Infrastructure");
+      });
 });
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>()

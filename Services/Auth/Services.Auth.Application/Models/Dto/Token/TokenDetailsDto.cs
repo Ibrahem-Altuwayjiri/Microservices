@@ -10,8 +10,8 @@ namespace Services.Auth.Application.Models.Dto.Token
     {
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
-        public string CreateByDeviceIP { get; set; }
-        public string UserId { get; set; }
+        public string CreateByClientIp { get; set; }
+        public string CreateByUserId { get; set; }
         public string Token { get; set; }
         public DateTime TokenExpires { get; set; }
         public bool IsTokenExpired { get; }
