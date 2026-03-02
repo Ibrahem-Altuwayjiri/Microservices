@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Government Services Portal";
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container-fluid">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Government Services Portal</h1>
+                <p class="lead mb-4">A unified platform providing efficient and accessible government services to all citizens</p>
+                <div class="btn-group" role="group">
+                    <a href="/Home/Services" class="btn btn-primary btn-lg">Explore Services</a>
+                    <a href="/Auth/Login" class="btn btn-outline-primary btn-lg">Get Started</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://via.placeholder.com/400x300?text=Government+Services" alt="Government Services" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Showcase -->
+<section class="services-section py-5">
+    <div class="container-fluid">
+        <h2 class="text-center mb-5">Available Services</h2>
+        <div class="row" id="servicesContainer">
+            <!-- Services will be loaded via AJAX -->
+            <div class="col-12 text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics -->
+<section class="stats-section bg-light py-5">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <h3 class="stat-number">500+</h3>
+                    <p class="stat-label">Government Services</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <h3 class="stat-number">2M+</h3>
+                    <p class="stat-label">Active Users</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <h3 class="stat-number">99.9%</h3>
+                    <p class="stat-label">Service Availability</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            loadServices();
+        });
+
+        function loadServices() {
+            $.ajax({
+                url: '/api/Services/GetMainServices',
+                type: 'GET',
+                success: function (data) {
+                    let html = '';
+                    $.each(data, function (index, service) {
+                        html += `
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="service-card">
+                                    <div class="service-icon">
+                                        <i class="fas fa-cogs"></i>
+                                    </div>
+                                    <h5 class="service-title">${service.name}</h5>
+                                    <p class="service-description">${service.description}</p>
+                                    <a href="/Home/ServiceDetail/${service.id}" class="btn btn-sm btn-primary">
+                                        Learn More <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    $('#servicesContainer').html(html);
+                },
+                error: function () {
+                    $('#servicesContainer').html('<div class="col-12 alert alert-danger">Failed to load services</div>');
+                }
+            });
+        }
+    </script>
+}

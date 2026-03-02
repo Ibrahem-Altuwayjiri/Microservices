@@ -1,0 +1,27 @@
+@model Services.Frontend.Web.Services.DTOs.ManageServices.CreateOrUpdateSubSubServiceDto
+
+<form id="itemForm">
+    @if (!string.IsNullOrEmpty(Model?.Id))
+    {
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+    }
+    
+    <div class="mb-3">
+        <label class="form-label" asp-for="SubServiceId">Sub Service <span class="text-danger">*</span></label>
+        <select class="form-control" asp-for="SubServiceId" required>
+            <option value="">-- Select Sub Service --</option>
+        </select>
+        <span asp-validation-for="SubServiceId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NameAr">NameAr <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" asp-for="NameAr" value="@Model?.NameAr" required />
+        <span asp-validation-for="NameAr" class="text-danger"></span>
+    </div>
+      <div class="mb-3">
+        <label class="form-label" asp-for="NameEn">NameEn <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" asp-for="NameEn" value="@Model?.NameEn" required />
+        <span asp-validation-for="NameEn" class="text-danger"></span>
+    </div>
+</form>

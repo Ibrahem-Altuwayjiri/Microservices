@@ -1,0 +1,265 @@
+@model List<Services.Frontend.Web.Services.DTOs.ManageServices.ServiceDetailsDto>
+
+<div class="services-browse-container">
+    <div class="row mb-5">
+        <div class="col-md-8">
+            <h2 class="text-primary mb-3">Browse Services</h2>
+            <p class="text-muted">Explore all available government services and find what you need</p>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="serviceSearch" placeholder="Search by name, domain, or tag..." />
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="filter-section">
+                <h5 class="mb-3">Filter by</h5>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-label">Domain</label>
+                        <select class="form-select" id="domainFilter">
+                            <option value="">All Domains</option>
+                            <!-- Options will be loaded via AJAX -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Activity</label>
+                        <select class="form-select" id="activityFilter">
+                            <option value="">All Activities</option>
+                            <!-- Options will be loaded via AJAX -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Tag</label>
+                        <select class="form-select" id="tagFilter">
+                            <option value="">All Tags</option>
+                            <!-- Options will be loaded via AJAX -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary mt-4" onclick="applyFilters()">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="servicesGrid">
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var service in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="service-card-user">
+                        <div class="service-card-header">
+                            <h5 class="service-card-title">@service.NameEn</h5>
+                            <span class="badge bg-primary">Service</span>
+                        </div>
+                        <div class="service-card-body">
+                            <p class="service-card-description">@service.DescriptionEn</p>
+                            <div class="service-meta">
+                                <small class="text-muted d-block mb-2">
+                                    <i class="fas fa-language"></i> @service.NameAr
+                                </small>
+                            </div>
+                        </div>
+                        <div class="service-card-footer">
+                            <button class="btn btn-primary btn-sm" onclick="viewServiceDetail(@service.Id)">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="shareService(@service.Id)">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle"></i> No services found. Try adjusting your filters.
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Service Detail Modal -->
+<div class="modal fade" id="serviceDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="serviceDetailTitle">Service Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="serviceDetailContent">
+                <!-- Content will be loaded via AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            loadFilterOptions();
+            
+            $('#serviceSearch').on('keyup', function () {
+                searchServices($(this).val());
+            });
+
+            $('#domainFilter, #activityFilter, #tagFilter').on('change', function () {
+                applyFilters();
+            });
+        });
+
+        function loadFilterOptions() {
+            // Load domains
+            $.ajax({
+                url: '/api/ServiceManagement/GetDomains',
+                type: 'GET',
+                success: function (data) {
+                    $.each(data, function (i, domain) {
+                        $('#domainFilter').append(`<option value="${domain.id}">${domain.nameEn}</option>`);
+                    });
+                }
+            });
+
+            // Load activities
+            $.ajax({
+                url: '/api/ServiceManagement/GetActivities',
+                type: 'GET',
+                success: function (data) {
+                    $.each(data, function (i, activity) {
+                        $('#activityFilter').append(`<option value="${activity.id}">${activity.nameEn}</option>`);
+                    });
+                }
+            });
+
+            // Load tags
+            $.ajax({
+                url: '/api/ServiceManagement/GetTags',
+                type: 'GET',
+                success: function (data) {
+                    $.each(data, function (i, tag) {
+                        $('#tagFilter').append(`<option value="${tag.id}">${tag.nameEn}</option>`);
+                    });
+                }
+            });
+        }
+
+        function searchServices(query) {
+            if (query.length === 0) {
+                location.reload();
+                return;
+            }
+
+            $.ajax({
+                url: `/api/ServiceManagement/SearchServices?query=${encodeURIComponent(query)}`,
+                type: 'GET',
+                success: function (data) {
+                    renderServices(data);
+                }
+            });
+        }
+
+        function applyFilters() {
+            const domain = $('#domainFilter').val();
+            const activity = $('#activityFilter').val();
+            const tag = $('#tagFilter').val();
+
+            $.ajax({
+                url: `/api/ServiceManagement/FilterServices?domain=${domain}&activity=${activity}&tag=${tag}`,
+                type: 'GET',
+                success: function (data) {
+                    renderServices(data);
+                }
+            });
+        }
+
+        function renderServices(services) {
+            let html = '';
+            if (services.length > 0) {
+                $.each(services, function (i, service) {
+                    html += `
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="service-card-user">
+                                <div class="service-card-header">
+                                    <h5 class="service-card-title">${service.nameEn}</h5>
+                                    <span class="badge bg-primary">Service</span>
+                                </div>
+                                <div class="service-card-body">
+                                    <p class="service-card-description">${service.descriptionEn || 'No description available'}</p>
+                                    <div class="service-meta">
+                                        <small class="text-muted d-block mb-2">
+                                            <i class="fas fa-language"></i> ${service.nameAr}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="service-card-footer">
+                                    <button class="btn btn-primary btn-sm" onclick="viewServiceDetail(${service.id})">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm" onclick="shareService(${service.id})">
+                                        <i class="fas fa-share"></i> Share
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html = '<div class="col-12"><div class="alert alert-info">No services found</div></div>';
+            }
+            $('#servicesGrid').html(html);
+        }
+
+        function viewServiceDetail(serviceId) {
+            $.ajax({
+                url: `/api/ServiceManagement/GetServiceDetail/${serviceId}`,
+                type: 'GET',
+                success: function (data) {
+                    $('#serviceDetailTitle').text(data.nameEn);
+                    $('#serviceDetailContent').html(`
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>English Name</h6>
+                                <p>${data.nameEn}</p>
+                                <h6>English Description</h6>
+                                <p>${data.descriptionEn || 'No description available'}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Arabic Name</h6>
+                                <p>${data.nameAr}</p>
+                                <h6>Arabic Description</h6>
+                                <p>${data.descriptionAr || 'No description available'}</p>
+                            </div>
+                        </div>
+                    `);
+                    new bootstrap.Modal(document.getElementById('serviceDetailModal')).show();
+                }
+            });
+        }
+
+        function shareService(serviceId) {
+            const url = `${window.location.origin}/Services/${serviceId}`;
+            const text = `Check out this government service!`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Government Service',
+                    text: text,
+                    url: url
+                });
+            } else {
+                // Fallback
+                prompt('Copy this link:', url);
+            }
+        }
+    </script>
+}

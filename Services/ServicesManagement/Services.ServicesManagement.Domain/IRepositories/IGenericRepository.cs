@@ -21,6 +21,7 @@ namespace Services.ServicesManagement.Domain.IRepositories
         public Task<T> Update(T entity);
         public Task<T> FindOneOrDefault(Expression<Func<T, bool>> expression);
         public Task<T?> FindOneOrDefaultWithInclude(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes);
+        public Task<T?> FindOneOrDefaultWithInclude(Expression<Func<T, bool>> expression, Func<IQueryable<T>, IQueryable<T>>? include = null);
         public Task<T> Add(T entity);
         public Task<List<T>> AddRange(List<T> entities);
         public Task<T> Remove(int id);

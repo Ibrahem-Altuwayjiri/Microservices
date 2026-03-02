@@ -1,0 +1,50 @@
+@model ServiceDetailsDto
+
+<div class="catalog-card card h-100 shadow-sm">
+    <a asp-action="ViewAsserviceCard"
+       asp-controller="ServiceDetails"
+       asp-route-id="@Model.Id"
+       class="catalog-card-link text-decoration-none">
+
+        <div class="card-body d-flex flex-column">
+            <!-- Icon -->
+            <div class="catalog-card-icon mb-3">
+                <i class="fas fa-concierge-bell"></i>
+            </div>
+
+            <!-- Name -->
+            <h5 class="catalog-card-name mb-1">@(Model.NameAr ?? "—")</h5>
+            <p class="catalog-card-name-en text-muted small mb-3">@(Model.NameEn ?? "")</p>
+
+            <!-- Description -->
+            <p class="catalog-card-desc text-muted mb-3">
+                @if (!string.IsNullOrEmpty(Model.DescriptionAr))
+                {
+                    @(Model.DescriptionAr.Length > 100 ? Model.DescriptionAr[..100] + "..." : Model.DescriptionAr)
+                }
+                else
+                {
+                    <span>—</span>
+                }
+            </p>
+
+            <!-- Domain badges pushed to bottom -->
+            <div class="mt-auto">
+                @if (Model.Domains != null && Model.Domains.Count > 0)
+                {
+                    <div class="d-flex flex-wrap gap-1">
+                        @foreach (var domain in Model.Domains)
+                        {
+                            <span class="badge catalog-badge-domain">@domain.NameEn</span>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Card footer with arrow -->
+        <div class="card-footer catalog-card-footer bg-transparent border-top-0 text-end">
+            <i class="fas fa-arrow-left catalog-card-arrow"></i>
+        </div>
+    </a>
+</div>

@@ -19,7 +19,7 @@ builder.Configuration.AddJsonFile("Ocelot/Ocelot.Auth.json", optional: false, re
 builder.Configuration.AddJsonFile("Ocelot/Ocelot.Email.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile("Ocelot/Ocelot.FileManagement.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile("Ocelot/Ocelot.ServicesManagement.json", optional: false, reloadOnChange: true);
-builder.Configuration.AddJsonFile("Ocelot/Ocelot.ServicesManagementLookUp.json", optional: false, reloadOnChange: true);
+//builder.Configuration.AddJsonFile("Ocelot/Ocelot.ServicesManagementLookUp.json", optional: false, reloadOnChange: true);
 
 // Load SwaggerForOcelot configuration (aggregates downstream swagger endpoints)
 builder.Configuration.AddJsonFile("Ocelot/swaggerForOcelot.json", optional: false, reloadOnChange: true);

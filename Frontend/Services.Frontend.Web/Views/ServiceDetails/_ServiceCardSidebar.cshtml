@@ -1,0 +1,49 @@
+@model ServiceDetailsDto
+
+@{
+    // Icons cycled per sidebar item for visual variety
+    var sidebarIcons = new[] {
+        "fas fa-users", "fas fa-bullseye", "fas fa-clock",
+        "fas fa-desktop", "fas fa-language", "fas fa-coins",
+        "fas fa-question-circle", "fas fa-phone-alt", "fas fa-envelope",
+        "fas fa-map-marker-alt", "fas fa-info-circle", "fas fa-cog"
+    };
+}
+
+<aside class="service-card-sidebar">
+    @if (Model?.HeaderValue != null && Model.HeaderValue.Count > 0)
+    {
+        <div class="card shadow-sm service-card-sidebar-card">
+            <div class="card-body p-0">
+                @{ var index = 0; }
+                @foreach (var hv in Model.HeaderValue)
+                {
+                    var icon = sidebarIcons[index % sidebarIcons.Length];
+                    <div class="sc-sidebar-item">
+                        <div class="sc-sidebar-icon">
+                            <i class="@icon"></i>
+                        </div>
+                        <div class="sc-sidebar-content">
+                            <div class="sc-sidebar-value">@hv.NameEn</div>
+                            @if (!string.IsNullOrEmpty(hv.NameAr))
+                            {
+                                <div class="sc-sidebar-value-ar">@hv.NameAr</div>
+                            }
+                            <div class="sc-sidebar-label">@(hv.Header?.NameEn ?? "Info")</div>
+                        </div>
+                    </div>
+                    index++;
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body text-center text-muted py-4">
+                <i class="fas fa-info-circle fa-2x mb-2"></i>
+                <p class="mb-0">No additional information available.</p>
+            </div>
+        </div>
+    }
+</aside>

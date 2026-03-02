@@ -55,7 +55,7 @@ namespace Services.Auth.Infrastructure.Repositories
                 {
                     // If entity has CreateEntity properties, set them
                     var createByProp = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "CreateByUserId");
-                    if (createByProp != null)
+                    if (createByProp != null && createByProp.CurrentValue == null)
                         createByProp.CurrentValue = userId;
 
                     var createDateProp = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "CreateDate");
@@ -72,11 +72,11 @@ namespace Services.Auth.Infrastructure.Repositories
                 {
                     // Prevent modification of Create* properties
                     var createByProp = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "CreateByUserId");
-                    if (createByProp != null)
+                    if (createByProp != null )
                         createByProp.IsModified = false;
 
                     var createDateProp = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "CreateDate");
-                    if (createDateProp != null)
+                    if (createDateProp != null )
                         createDateProp.IsModified = false;
 
                     var clientIpCreateProp = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "CreateByClientIp");
@@ -86,7 +86,7 @@ namespace Services.Auth.Infrastructure.Repositories
                     // Set auditable fields
                     var updateByProp = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "UpdateByUserId");
                     if (updateByProp != null)
-                        updateByProp.CurrentValue = userId;
+                        updateByProp.CurrentValue = userId.Equals("Unknown") ? null : userId;
 
                     var updateDateProp = entry.Properties.FirstOrDefault(p => p.Metadata.Name == "UpdateDate");
                     if (updateDateProp != null)

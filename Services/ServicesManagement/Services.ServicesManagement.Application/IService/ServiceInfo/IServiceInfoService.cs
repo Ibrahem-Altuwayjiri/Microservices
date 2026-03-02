@@ -18,6 +18,7 @@ namespace Services.ServicesManagement.Application.IService.ServiceInfo
         Task<bool> activate(string id);
         Task<bool> deactivate(string id);
         Task<ServiceDetailsDto> getById(string id);
+        Task<ServiceDetailsDto> getServiceDetailsById(string id);
         Task<List<ServiceDetailsDto>> getAll(ServiceDetailsFilteringDto? filteringDto = null, PaginationParametersDto? Pagination = null);
         Task<List<ServiceDetailsWithAuditDto>> getAllWithAudit(ServiceDetailsFilteringDto? filteringDto = null, PaginationParametersDto? Pagination = null);
     }
