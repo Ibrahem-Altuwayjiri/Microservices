@@ -51,20 +51,22 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
                 throw new RestfulException("Id is required", RestfulStatusCodes.BadRequest);
 
             // Load existing tracked entity from the database
-            var entity = await _unitOfWork.MainServiceRepository.FindOneOrDefault(a => a.Id == dto.Id);
+            var entity = await _unitOfWork.ServiceDetailsRepository.FindOneOrDefault(a => a.Id == dto.Id);
             if (entity == null)
                 throw new RestfulException("Not Found Service", RestfulStatusCodes.NotFound);
 
             // Map incoming DTO onto the tracked entity to update mutable fields only
             _mapper.Map(dto, entity);
 
-            var serviceDetails = await _unitOfWork.MainServiceRepository.Update(entity);
 
-            await saveServiceActivities(dto.Activities, serviceDetails.Id);
-            await saveServiceTags(dto.Tags, serviceDetails.Id);
-            await saveServiceDomains(dto.Domains, serviceDetails.Id);
-            await saveHeaderValue(dto.HeaderValue, serviceDetails.Id);
-            await saveDocumentValue(dto.DocumentValue, serviceDetails.Id);
+            await saveServiceActivities(dto.Activities, dto.Id);
+            await saveServiceTags(dto.Tags, dto.Id);
+            await saveServiceDomains(dto.Domains, dto.Id);
+            await deleteOldHeaderValue(dto.HeaderValue, dto.Id);
+            await saveDocumentValue(dto.DocumentValue, dto.Id);
+
+            var serviceDetails = await _unitOfWork.ServiceDetailsRepository.Update(entity);
+
 
             await _unitOfWork.CompletedAsync();
 
@@ -127,12 +129,12 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
         }
         private async Task saveHeaderValue(List<CreateOrUpdateHeaderValueDto>? createOrUpdateHeaderValues , string ServiceDetailsId)
         {
-            var oldHeaderValue = _mapper.Map<List<HeaderValue>>(createOrUpdateHeaderValues);
+            //var oldHeaderValue = _mapper.Map<List<HeaderValue>>(createOrUpdateHeaderValues);
             // remove old header values
             var oldHeaderValues = await _unitOfWork.HeaderValueRepository.Find(m => m.ServiceDetailsId == ServiceDetailsId);
             foreach (var item in oldHeaderValues)
             {
-                await _unitOfWork.HeaderValueRepository.Remove(item.Id);
+                await _unitOfWork.HeaderValueRepository.Remove(item);
             }
 
             // add new header values
@@ -148,6 +150,16 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
             if (newHeaderValues != null || newHeaderValues?.Count > 0)
                 await _unitOfWork.HeaderValueRepository.AddRange(newHeaderValues);
 
+        }
+        private async Task deleteOldHeaderValue(List<CreateOrUpdateHeaderValueDto>? createOrUpdateHeaderValues, string ServiceDetailsId)
+        {
+            //var oldHeaderValue = _mapper.Map<List<HeaderValue>>(createOrUpdateHeaderValues);
+            // remove old header values
+            var oldHeaderValues = await _unitOfWork.HeaderValueRepository.Find(m => m.ServiceDetailsId == ServiceDetailsId);
+            foreach (var item in oldHeaderValues)
+            {
+                await _unitOfWork.HeaderValueRepository.Remove(item);
+            }
         }
         private async Task saveDocumentValue(List<CreateOrUpdateDocumentValueDto>? createOrUpdateDocumentValues, string ServiceDetailsId)
         {
@@ -256,7 +268,25 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
 
             return _mapper.Map<ServiceDetailsDto>(entity);
         }
+        public async Task<ServiceDetailsDto> getServiceDetailsById(string id)
+        {
+            var entity = await _unitOfWork.ServiceDetailsRepository.FindOneOrDefaultWithInclude(m => m.Id == id , include: query => query
+                                                                                    .Include(o => o.ServiceTags).ThenInclude(t => t.Tags)
+                                                                                    .Include(o => o.ServiceDomains).ThenInclude(d => d.Domains)
+                                                                                    .Include(o => o.ServiceActivities).ThenInclude(a => a.Activities)
+                                                                                    .Include(o => o.MainService)
+                                                                                    .Include(o => o.SubService)
+                                                                                    .Include(o => o.SubSubService)
+                                                                                    .Include(o => o.HeaderValue).ThenInclude(h => h.Header)
+                                                                                    .Include(o => o.DocumentValue).ThenInclude(d => d.DocumentName)
+ );
+            if (entity == null)
+                throw new RestfulException("Not Found Service", RestfulStatusCodes.NotFound);
 
-        
+            return _mapper.Map<ServiceDetailsDto>(entity);
+        }
+
+
+
     }
 }

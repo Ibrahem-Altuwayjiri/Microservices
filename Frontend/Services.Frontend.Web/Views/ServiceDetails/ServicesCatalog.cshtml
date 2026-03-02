@@ -1,0 +1,218 @@
+@model ServicesCatalogViewModel
+
+@{
+    ViewData["Title"] = "Services Catalog";
+}
+
+<section class="catalog-hero">
+    <div class="container-fluid">
+        <h1 class="catalog-hero-title">
+            <i class="fas fa-th-large me-2"></i> Browse Services
+        </h1>
+        <p class="catalog-hero-subtitle text-muted">
+            Explore all available government services. Filter by domain, activities, or tags.
+        </p>
+    </div>
+</section>
+
+<div class="container-fluid mt-4 mb-5">
+    <div class="row g-4">
+
+        <!-- Filters Sidebar -->
+        <div class="col-lg-3">
+            <div class="catalog-filters card shadow-sm">
+                <div class="card-header catalog-filters-header">
+                    <h6 class="mb-0"><i class="fas fa-filter me-1"></i> Filters</h6>
+                </div>
+                <div class="card-body">
+                    <form id="catalogFilterForm"
+                          asp-action="ServicesCatalog"
+                          asp-controller="ServiceDetails"
+                          method="get">
+
+                        <!-- Search -->
+                        <div class="mb-4">
+                            <label for="search" class="form-label fw-semibold">
+                                <i class="fas fa-search me-1"></i> Search by name
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="search"
+                                   name="search"
+                                   value="@Model.SearchTerm"
+                                   placeholder="Service name..." />
+                        </div>
+
+                        <!-- Domain (single select) -->
+                        <div class="mb-4">
+                            <label for="domainId" class="form-label fw-semibold">
+                                <i class="fas fa-globe me-1 text-success"></i> Domain
+                            </label>
+                            <select class="form-select" id="domainId" name="domainId">
+                                <option value="">All Domains</option>
+                                @foreach (var domain in Model.AllDomains)
+                                {
+                                    <option value="@domain.Id"
+                                            selected="@(Model.DomainId == domain.Id)">
+                                        @domain.NameEn
+                                    </option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Activities (multiple select) -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="fas fa-running me-1 text-primary"></i> Activities
+                            </label>
+                            <div class="catalog-filter-list border rounded p-2"
+                                 style="max-height: 180px; overflow-y: auto;">
+                                @foreach (var activity in Model.AllActivities)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input catalog-filter-chk"
+                                               type="checkbox"
+                                               name="activityIds"
+                                               value="@activity.Id"
+                                               id="activity_@activity.Id"
+                                               checked="@(Model.ActivityIds.Contains(activity.Id))" />
+                                        <label class="form-check-label" for="activity_@activity.Id">
+                                            @activity.NameEn
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Tags (multiple select) -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="fas fa-tags me-1 text-warning"></i> Tags
+                            </label>
+                            <div class="catalog-filter-list border rounded p-2"
+                                 style="max-height: 180px; overflow-y: auto;">
+                                @foreach (var tag in Model.AllTags)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input catalog-filter-chk"
+                                               type="checkbox"
+                                               name="tagIds"
+                                               value="@tag.Id"
+                                               id="tag_@tag.Id"
+                                               checked="@(Model.TagIds.Contains(tag.Id))" />
+                                        <label class="form-check-label" for="tag_@tag.Id">
+                                            @tag.NameEn
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search me-1"></i> Apply Filters
+                            </button>
+                            <a asp-action="ServicesCatalog"
+                               asp-controller="ServiceDetails"
+                               class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> Clear Filters
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="col-lg-9">
+
+            <!-- Results header -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <p class="text-muted mb-0">
+                    <strong>@Model.TotalCount</strong> service(s) found
+                    @if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+                    {
+                        <span> for "<strong>@Model.SearchTerm</strong>"</span>
+                    }
+                </p>
+            </div>
+
+            @if (Model.Services.Count > 0)
+            {
+                <!-- Cards -->
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" id="catalogCardsGrid">
+                    @foreach (var service in Model.Services)
+                    {
+                        <div class="col">
+                            <partial name="_ServiceCatalogCard" model="service" />
+                        </div>
+                    }
+                </div>
+
+                <!-- Pagination -->
+                @if (Model.TotalPages > 1)
+                {
+                    <nav aria-label="Services pagination" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <!-- Previous -->
+                            <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+                                <a class="page-link"
+                                   asp-action="ServicesCatalog"
+                                   asp-route-search="@Model.SearchTerm"
+                                   asp-route-domainId="@Model.DomainId"
+                                   asp-route-page="@(Model.CurrentPage - 1)"
+                                   aria-label="Previous">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            </li>
+
+                            @for (var i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                    <a class="page-link"
+                                       asp-action="ServicesCatalog"
+                                       asp-route-search="@Model.SearchTerm"
+                                       asp-route-domainId="@Model.DomainId"
+                                       asp-route-page="@i">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+
+                            <!-- Next -->
+                            <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+                                <a class="page-link"
+                                   asp-action="ServicesCatalog"
+                                   asp-route-search="@Model.SearchTerm"
+                                   asp-route-domainId="@Model.DomainId"
+                                   asp-route-page="@(Model.CurrentPage + 1)"
+                                   aria-label="Next">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                }
+            }
+            else
+            {
+                <!-- Empty state -->
+                <div class="text-center py-5">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">No services found</h5>
+                    <p class="text-muted">Try adjusting your filters or search term.</p>
+                    <a asp-action="ServicesCatalog"
+                       asp-controller="ServiceDetails"
+                       class="btn btn-outline-primary">
+                        <i class="fas fa-redo me-1"></i> Reset Filters
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/services-catalog.js" asp-append-version="true"></script>
+}

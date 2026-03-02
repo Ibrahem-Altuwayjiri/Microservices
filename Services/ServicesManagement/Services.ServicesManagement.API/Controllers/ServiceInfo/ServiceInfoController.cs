@@ -57,7 +57,7 @@ namespace Services.ServicesManagement.API.Controllers.ServiceInfo
         [HttpGet("getById/{Id}")]
         public async Task<IActionResult> GetById(string Id)
         {
-            _response.Result = await _serviceInfoService.getById(Id);
+            _response.Result = await _serviceInfoService.getServiceDetailsById(Id);
             return Ok(_response);
         }
 

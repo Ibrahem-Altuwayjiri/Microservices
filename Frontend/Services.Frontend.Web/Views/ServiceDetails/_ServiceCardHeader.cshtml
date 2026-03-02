@@ -1,0 +1,81 @@
+@model ServiceDetailsDto
+
+<section class="service-card-header">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left: Title, badges, description, actions -->
+            <div class="col-lg-8">
+                <!-- Title -->
+                <h1 class="service-card-title mb-2">
+                    @(Model?.NameEn ?? "—")
+                </h1>
+
+                <!-- Domain + Tag badges -->
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    @if (Model?.Domains != null)
+                    {
+                        @foreach (var domain in Model.Domains)
+                        {
+                            <span class="badge service-card-badge-domain">@domain.NameEn</span>
+                        }
+                    }
+                    @if (Model?.Tags != null)
+                    {
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <span class="badge service-card-badge-tag">@tag.NameEn</span>
+                        }
+                    }
+                </div>
+
+                <!-- Description -->
+                <p class="service-card-desc-text mb-3">
+                    @(Model?.DescriptionEn ?? "—")
+                </p>
+
+                <!-- Service Level Agreement link -->
+                @if (Model?.MainService != null)
+                {
+                    <div class="mb-3">
+                        <a href="#" class="service-card-sla-link">
+                            Service Level Agreement
+                            <i class="fas fa-external-link-alt ms-1"></i>
+                        </a>
+                    </div>
+                }
+
+                <!-- Action buttons -->
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <button type="button" class="btn btn-outline-secondary btn-sm service-card-action-btn">
+                        <i class="far fa-star me-1"></i> Favorite Page
+                    </button>
+                    <a href="#" class="btn btn-success btn-sm service-card-start-btn">
+                        Start the service
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Share section -->
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <p class="service-card-share-title mb-2">Share The Page</p>
+                <div class="service-card-share-icons">
+                    <a href="#" class="service-card-share-icon" title="X (Twitter)" aria-label="Share on X">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="#" class="service-card-share-icon" title="LinkedIn" aria-label="Share on LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="service-card-share-icon" title="Facebook" aria-label="Share on Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="service-card-share-icon" title="WhatsApp" aria-label="Share on WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="service-card-share-icon" title="Email" aria-label="Share via Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

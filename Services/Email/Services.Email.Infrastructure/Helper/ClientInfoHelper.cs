@@ -7,6 +7,9 @@ namespace Services.Email.Infrastructure.Helper
     {
         public static string GetClientIp(HttpContext context)
         {
+            if (context == null)
+                return "Unknown";
+
             var ip = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(ip))
@@ -23,6 +26,9 @@ namespace Services.Email.Infrastructure.Helper
         }
         public static string GetUserId(HttpContext context)
         {
+            if (context == null)
+                return "Unknown";
+
             var userIdClaim = context?.User?.FindFirst(ClaimTypes.NameIdentifier);
             var userId = userIdClaim?.Subject?.Claims.FirstOrDefault(u => u.Properties.Values.Any(x => x.Equals("sub")))?.Value;
             return userId ?? "Unknown";

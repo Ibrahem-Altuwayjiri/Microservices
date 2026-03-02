@@ -1,0 +1,44 @@
+@model Services.Frontend.Web.Services.DTOs.ManageServices.CreateOrUpdateSubServiceDto
+@{
+    var mainServices = ViewBag.MainServices as List<MainServiceDto>;
+}
+
+<form id="itemForm">
+    @if (!string.IsNullOrEmpty(Model?.Id))
+    {
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+    }
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="MainServiceId">Main Service <span class="text-danger">*</span></label>
+        <select class="form-control" asp-for="MainServiceId" required>
+            <option value="">Select a main service</option>
+            @if (mainServices != null)
+            {
+                foreach (var service in mainServices)
+                {
+                    if (Model?.MainServiceId == service.Id)
+                    {
+                        <option value="@service.Id" selected>@service.NameAr</option>
+                    }
+                    else
+                    {
+                        <option value="@service.Id">@service.NameAr</option>
+                    }
+                }
+            }
+        </select>
+        <span asp-validation-for="MainServiceId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NameAr">NameAr <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" asp-for="NameAr" value="@Model?.NameAr" required />
+        <span asp-validation-for="NameAr" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="NameEn">NameEn <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" asp-for="NameEn" value="@Model?.NameEn" required />
+        <span asp-validation-for="NameEn" class="text-danger"></span>
+    </div>
+</form>

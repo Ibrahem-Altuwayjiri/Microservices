@@ -1,0 +1,71 @@
+@model ServiceDetailsDto
+
+<div class="service-card-tabs-section card shadow-sm">
+    <div class="card-body p-0">
+        <ul class="nav service-card-nav border-bottom" id="serviceCardTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="steps-tab"
+                        data-bs-toggle="tab" data-bs-target="#steps-pane"
+                        type="button" role="tab"
+                        aria-controls="steps-pane" aria-selected="true">
+                    Steps
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="prerequisites-tab"
+                        data-bs-toggle="tab" data-bs-target="#prerequisites-pane"
+                        type="button" role="tab"
+                        aria-controls="prerequisites-pane" aria-selected="false">
+                    Prerequisites
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="documents-tab"
+                        data-bs-toggle="tab" data-bs-target="#documents-pane"
+                        type="button" role="tab"
+                        aria-controls="documents-pane" aria-selected="false">
+                    Required Documents
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content p-4" id="serviceCardTabContent">
+
+            <!-- Steps Tab -->
+            <div class="tab-pane fade show active" id="steps-pane"
+                 role="tabpanel" aria-labelledby="steps-tab">
+                <ol class="service-card-steps-list">
+                    <li>Visit National Unified Portal by using IAM (Nafath).</li>
+                    <li>Insert the personal information, i.e., phone No. and e-mail.</li>
+                    <li>Select the entity that you are reporting about.</li>
+                    <li>Select the related service that you are reporting about.</li>
+                    <li>Add a description and title for your request, and then submit it.</li>
+                    <li>Accordingly, you will receive an SMS that contains the report number.</li>
+                    <li>You will receive a follow-up SMS indicating your request has been escalated to the entity.</li>
+                    <li>You will receive a notification upon addressing the ticket or the lack of documents.</li>
+                </ol>
+            </div>
+
+            <!-- Prerequisites Tab -->
+            <div class="tab-pane fade" id="prerequisites-pane"
+                 role="tabpanel" aria-labelledby="prerequisites-tab">
+                <ul class="service-card-steps-list">
+                    <li>Must have a valid National ID or Iqama.</li>
+                    <li>Must have an active account on the platform.</li>
+                    <li>Must meet eligibility requirements for this service.</li>
+                </ul>
+            </div>
+
+            <!-- Required Documents Tab -->
+            <div class="tab-pane fade" id="documents-pane"
+                 role="tabpanel" aria-labelledby="documents-tab">
+                <ul class="service-card-steps-list">
+                    <li>Copy of National ID / Iqama.</li>
+                    <li>Proof of address.</li>
+                    <li>Recent personal photo.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

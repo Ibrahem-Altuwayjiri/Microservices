@@ -21,8 +21,7 @@ namespace Services.ServicesManagement.Application.Models.Dto.ServiceInfo.CreateO
         public string DescriptionAr { get; set; }
         [Required]
         public string DescriptionEn { get; set; }
-        [Required]
-        public string MainServiceId { get; set; }
+        public string? MainServiceId { get; set; }
         public string? SubServiceId { get; set; }
         public string? SubSubServiceId { get; set; }
 

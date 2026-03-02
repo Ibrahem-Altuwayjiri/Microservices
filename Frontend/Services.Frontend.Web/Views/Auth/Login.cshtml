@@ -1,0 +1,325 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/login.css" />
+
+<div class="login-container">
+    <div class="login-wrapper">
+        <div class="row g-0 h-100">
+            <!-- Left Side - Branding -->
+            <div class="col-lg-6 d-none d-lg-flex login-branding">
+                <div class="branding-content">
+                    <div class="branding-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2>Government Services Portal</h2>
+                    <p>Secure access to all government services</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Secure Authentication</li>
+                        <li><i class="fas fa-check-circle"></i> OTP Verification</li>
+                        <li><i class="fas fa-check-circle"></i> Quick Access</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 Available</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="col-lg-6 login-form-container">
+                <div class="login-form-wrapper">
+                    <!-- Step 1: Login Form -->
+                    <div id="step1" class="login-step active">
+                        <h3 class="form-title">Welcome Back</h3>
+                        <p class="form-subtitle">Sign in to your account</p>
+
+                        <!-- Alert for errors -->
+                        <div id="loginAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="display: none;">
+                            <span id="alertMessage"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <input type="email" class="form-control" id="email" name="email" 
+                                           placeholder="Enter your email" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" id="password" name="password" 
+                                           placeholder="Enter your password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                                <label class="form-check-label" for="rememberMe">
+                                    Remember me
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-login w-100" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                        </form>
+
+                        <div class="divider">OR</div>
+
+                        <div class="signup-link">
+                            <p>Don't have an account? <a href="#signup">Sign up here</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: OTP Verification -->
+                    <div id="step2" class="login-step">
+                        <h3 class="form-title">Verify OTP</h3>
+                        <p class="form-subtitle">Enter the OTP sent to your email</p>
+
+                        <!-- Alert for OTP errors -->
+                        <div id="otpAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="display: none;">
+                            <span id="otpAlertMessage"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+
+                        <div class="otp-info">
+                            <p>We've sent a 6-digit code to <strong id="emailDisplay"></strong></p>
+                            <p class="text-muted small">Code expires in <span id="otpTimer">5:00</span></p>
+                        </div>
+
+                        <form id="otpForm">
+                            <div class="otp-inputs mb-4">
+                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" required>
+                                <input type="text" class="otp-input" maxlength="1" inputmode="numeric" required>
+                            </div>
+
+                            <input type="hidden" id="otpCode" name="otp">
+
+                            <button type="submit" class="btn btn-primary btn-login w-100" id="verifyBtn">
+                                <i class="fas fa-check-circle"></i> Verify & Login
+                            </button>
+                        </form>
+
+                        <div class="otp-footer">
+                            <p>Didn't receive code? <a href="#" id="resendBtn">Resend</a></p>
+                            <a href="#" id="backBtn" class="back-link">
+                                <i class="fas fa-arrow-left"></i> Back to Login
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Loading State -->
+                    <div id="step3" class="login-step">
+                        <div class="loading-container">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3">Verifying your credentials...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const otpForm = document.getElementById('otpForm');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const otpInputs = document.querySelectorAll('.otp-input');
+        let otpResendTimer = 300;
+        let currentEmail = '';
+
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            currentEmail = email;
+            document.getElementById('emailDisplay').textContent = email;
+
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Signing in...';
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.isSuccess) {
+                    sessionStorage.setItem('tempAccessKey', data.result.accessKey);
+                    step1.classList.remove('active');
+                    step2.classList.add('active');
+                    startOtpTimer();
+                } else {
+                    showLoginAlert(data.message || 'Login failed');
+                }
+            } catch (error) {
+                showLoginAlert('An error occurred. Please try again.');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+            }
+        });
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                if (this.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+
+                const otpCode = Array.from(otpInputs)
+                    .map(inp => inp.value)
+                    .join('');
+                document.getElementById('otpCode').value = otpCode;
+            });
+
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && !this.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        otpForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const otp = document.getElementById('otpCode').value;
+            const accessKey = sessionStorage.getItem('tempAccessKey');
+
+            if (otp.length !== 6) {
+                showOtpAlert('Please enter a valid OTP');
+                return;
+            }
+
+            step2.classList.remove('active');
+            step3.classList.add('active');
+
+            try {
+                const response = await fetch('/api/auth/verify-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ otp, accessKey })
+                });
+
+                const data = await response.json();
+
+                if (data.isSuccess) {
+                    localStorage.setItem('accessToken', data.result.token);
+                    localStorage.setItem('refreshToken', data.result.refreshToken);
+                    
+                    setTimeout(() => {
+                        window.location.href = '/Home/ServiceManagement';
+                    }, 1000);
+                } else {
+                    step3.classList.remove('active');
+                    step2.classList.add('active');
+                    showOtpAlert(data.message || 'OTP verification failed');
+                }
+            } catch (error) {
+                step3.classList.remove('active');
+                step2.classList.add('active');
+                showOtpAlert('An error occurred. Please try again.');
+            }
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            step2.classList.remove('active');
+            step1.classList.add('active');
+            clearOtpInputs();
+        });
+
+        document.getElementById('resendBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (otpResendTimer <= 0) {
+                fetch('/api/auth/resend-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: currentEmail })
+                });
+                
+                otpResendTimer = 300;
+                startOtpTimer();
+            }
+        });
+
+        function showLoginAlert(message) {
+            const alert = document.getElementById('loginAlert');
+            document.getElementById('alertMessage').textContent = message;
+            alert.style.display = 'block';
+        }
+
+        function showOtpAlert(message) {
+            const alert = document.getElementById('otpAlert');
+            document.getElementById('otpAlertMessage').textContent = message;
+            alert.style.display = 'block';
+        }
+
+        function clearOtpInputs() {
+            otpInputs.forEach(input => input.value = '');
+            document.getElementById('otpCode').value = '';
+        }
+
+        function startOtpTimer() {
+            otpResendTimer = 300;
+            
+            const timer = setInterval(() => {
+                otpResendTimer--;
+                const minutes = Math.floor(otpResendTimer / 60);
+                const seconds = otpResendTimer % 60;
+                document.getElementById('otpTimer').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                if (otpResendTimer <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('resendBtn').style.opacity = '1';
+                    document.getElementById('resendBtn').style.pointerEvents = 'auto';
+                }
+            }, 1000);
+        }
+    </script>
+}

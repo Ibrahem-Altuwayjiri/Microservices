@@ -1,0 +1,23 @@
+@model ServiceDetailsDto
+
+@{
+    ViewData["Title"] = Model?.NameEn ?? "Service Details";
+}
+
+<!-- Section 1: Header (full width) -->
+<partial name="_ServiceCardHeader" model="Model" />
+
+<!-- Section 2 & 3: Tabs (75%) + Sidebar (25%) -->
+<div class="container-fluid mt-4 mb-5">
+    <div class="row g-4">
+        <!-- Section 2: Tabs -->
+        <div class="col-lg-9">
+            <partial name="_ServiceCardTabs" model="Model" />
+        </div>
+
+        <!-- Section 3: Sidebar -->
+        <div class="col-lg-3">
+            <partial name="_ServiceCardSidebar" model="Model" />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,268 @@
+@model Services.Frontend.Web.Services.DTOs.ManageServices.ServiceDetailsDto
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs mb-3" id="viewDetailsTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="view-info-tab" data-bs-toggle="tab" data-bs-target="#view-info"
+                type="button" role="tab" aria-controls="view-info" aria-selected="true">
+            <i class="fas fa-info-circle me-1"></i> Service Detail
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="view-structure-tab" data-bs-toggle="tab" data-bs-target="#view-structure"
+                type="button" role="tab" aria-controls="view-structure" aria-selected="false">
+            <i class="fas fa-sitemap me-1"></i> Structure
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="view-lookups-tab" data-bs-toggle="tab" data-bs-target="#view-lookups"
+                type="button" role="tab" aria-controls="view-lookups" aria-selected="false">
+            <i class="fas fa-tags me-1"></i> Lookups
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="view-headers-tab" data-bs-toggle="tab" data-bs-target="#view-headers"
+                type="button" role="tab" aria-controls="view-headers" aria-selected="false">
+            <i class="fas fa-heading me-1"></i> Headers
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content" id="viewDetailsTabContent">
+
+    <!-- Tab 1: Service Detail -->
+    <div class="tab-pane fade show active" id="view-info" role="tabpanel" aria-labelledby="view-info-tab">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label text-muted small">Name (Arabic)</label>
+                <p class="fw-semibold border-bottom pb-1">@(Model?.NameAr ?? "—")</p>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label text-muted small">Name (English)</label>
+                <p class="fw-semibold border-bottom pb-1">@(Model?.NameEn ?? "—")</p>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label text-muted small">Description (Arabic)</label>
+                <p class="border-bottom pb-1">@(Model?.DescriptionAr ?? "—")</p>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label text-muted small">Description (English)</label>
+                <p class="border-bottom pb-1">@(Model?.DescriptionEn ?? "—")</p>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label text-muted small">Status</label>
+                <p>
+                    <span class="badge @(Model?.IsActive == true ? "bg-success" : "bg-secondary") fs-6">
+                        @(Model?.IsActive == true ? "Active" : "Inactive")
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: Structure (MainService / SubService / SubSubService) -->
+    <div class="tab-pane fade" id="view-structure" role="tabpanel" aria-labelledby="view-structure-tab">
+        <div class="row g-3">
+
+            <!-- Main Service -->
+            <div class="col-12">
+                <h6 class="text-primary"><i class="fas fa-briefcase me-1"></i> Main Service</h6>
+                @if (Model?.MainService != null)
+                {
+                    <table class="table table-sm table-bordered mb-0">
+                        <thead class="table-light">
+                            <tr><th>Arabic</th><th>English</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.MainService.NameAr</td>
+                                <td>@Model.MainService.NameEn</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">Not assigned</p>
+                }
+            </div>
+
+            <!-- Sub Service -->
+            <div class="col-12">
+                <h6 class="text-success"><i class="fas fa-layer-group me-1"></i> Sub Service</h6>
+                @if (Model?.SubService != null)
+                {
+                    <table class="table table-sm table-bordered mb-0">
+                        <thead class="table-light">
+                            <tr><th>Arabic</th><th>English</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.SubService.NameAr</td>
+                                <td>@Model.SubService.NameEn</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">Not assigned</p>
+                }
+            </div>
+
+            <!-- Sub-Sub Service -->
+            <div class="col-12">
+                <h6 class="text-warning"><i class="fas fa-sitemap me-1"></i> Sub-Sub Service</h6>
+                @if (Model?.SubSubService != null)
+                {
+                    <table class="table table-sm table-bordered mb-0">
+                        <thead class="table-light">
+                            <tr><th>Arabic</th><th>English</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.SubSubService.NameAr</td>
+                                <td>@Model.SubSubService.NameEn</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">Not assigned</p>
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tab 3: Lookups (Activities / Tags / Domains) -->
+    <div class="tab-pane fade" id="view-lookups" role="tabpanel" aria-labelledby="view-lookups-tab">
+        <div class="row g-3">
+
+            <!-- Activities -->
+            <div class="col-md-4">
+                <h6 class="text-primary"><i class="fas fa-running me-1"></i> Activities
+                    <span class="badge bg-primary ms-1">@(Model?.Activities?.Count ?? 0)</span>
+                </h6>
+                <div class="border rounded" style="height:200px; overflow-y:auto;">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr><th>Arabic</th><th>English</th></tr>
+                        </thead>
+                        <tbody>
+                            @if (Model?.Activities != null && Model.Activities.Count > 0)
+                            {
+                                @foreach (var item in Model.Activities)
+                                {
+                                    <tr>
+                                        <td>@item.NameAr</td>
+                                        <td>@item.NameEn</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="2" class="text-center text-muted">None</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="col-md-4">
+                <h6 class="text-warning"><i class="fas fa-tags me-1"></i> Tags
+                    <span class="badge bg-warning text-dark ms-1">@(Model?.Tags?.Count ?? 0)</span>
+                </h6>
+                <div class="border rounded" style="height:200px; overflow-y:auto;">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr><th>Arabic</th><th>English</th></tr>
+                        </thead>
+                        <tbody>
+                            @if (Model?.Tags != null && Model.Tags.Count > 0)
+                            {
+                                @foreach (var item in Model.Tags)
+                                {
+                                    <tr>
+                                        <td>@item.NameAr</td>
+                                        <td>@item.NameEn</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="2" class="text-center text-muted">None</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Domains -->
+            <div class="col-md-4">
+                <h6 class="text-success"><i class="fas fa-globe me-1"></i> Domains
+                    <span class="badge bg-success ms-1">@(Model?.Domains?.Count ?? 0)</span>
+                </h6>
+                <div class="border rounded" style="height:200px; overflow-y:auto;">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light sticky-top">
+                            <tr><th>Arabic</th><th>English</th></tr>
+                        </thead>
+                        <tbody>
+                            @if (Model?.Domains != null && Model.Domains.Count > 0)
+                            {
+                                @foreach (var item in Model.Domains)
+                                {
+                                    <tr>
+                                        <td>@item.NameAr</td>
+                                        <td>@item.NameEn</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="2" class="text-center text-muted">None</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tab 4: Headers (Header + HeaderValue) -->
+    <div class="tab-pane fade" id="view-headers" role="tabpanel" aria-labelledby="view-headers-tab">
+        @if (Model?.HeaderValue != null && Model.HeaderValue.Count > 0)
+        {
+            <table class="table table-bordered table-striped table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>Header (Arabic)</th>
+                        <th>Header (English)</th>
+                        <th>Value (Arabic)</th>
+                        <th>Value (English)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var hv in Model.HeaderValue)
+                    {
+                        <tr>
+                            <td>@(hv.Header?.NameAr ?? "—")</td>
+                            <td>@(hv.Header?.NameEn ?? "—")</td>
+                            <td>@hv.NameAr</td>
+                            <td>@hv.NameEn</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-center text-muted fst-italic mt-3">No headers assigned.</p>
+        }
+    </div>
+
+</div>

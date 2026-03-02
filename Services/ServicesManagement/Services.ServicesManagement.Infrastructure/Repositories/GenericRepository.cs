@@ -47,6 +47,15 @@ namespace Services.ServicesManagement.Infrastructure.Repositories
 
             return await query.FirstOrDefaultAsync(expression);
         }
+        public async Task<T?> FindOneOrDefaultWithInclude(Expression<Func<T, bool>> expression, Func<IQueryable<T>, IQueryable<T>>? include = null)
+        {
+            IQueryable<T> query = dbSet;
+
+            if (include != null)
+                query = include(query);
+
+            return await query.FirstOrDefaultAsync(expression);
+        }
         public async Task<bool> IsExists(Expression<Func<T, bool>> expression) => await dbSet.AnyAsync(expression);
         public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression, PaginationParameters? pagination = null)
         {

@@ -1,0 +1,20 @@
+@model Services.Frontend.Web.Services.DTOs.LookupService.ActivitiesDto
+
+<form id="itemForm">
+    @if (Model?.Id > 0)
+    {
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+    }
+    
+    <div class="mb-3">
+        <label class="form-label" asp-for="NameAr">Name (Arabic) <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" asp-for="NameAr" value="@Model?.NameAr" required />
+        <span asp-validation-for="NameAr" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NameEn">Name (English) <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" asp-for="NameEn" value="@Model?.NameEn" required />
+        <span asp-validation-for="NameEn" class="text-danger"></span>
+    </div>
+</form>

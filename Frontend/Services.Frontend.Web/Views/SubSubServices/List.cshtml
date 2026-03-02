@@ -1,0 +1,62 @@
+@model List<Services.Frontend.Web.Services.DTOs.ManageServices.SubSubServiceDto>
+
+<div class="admin-services-container">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h3 class="text-primary">Sub-Sub Services Management</h3>
+        </div>
+        <div class="col-md-6 text-end">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal" onclick="openForm('SubSubServices')">
+                <i class="fas fa-plus"></i> Add Sub-Sub Service
+            </button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Sub Service ID</th>
+                    <th>NameAr</th>
+                    <th>NameEn</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="subSubServicesTable">
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var service in Model)
+                    {
+                        <tr>
+                            <td>@service.Id</td>
+                            <td>@service.SubServiceId</td>
+                            <td>@service.NameAr</td>
+                            <td>@service.NameEn</td>
+                            <td>
+                                <span class="badge @(service.IsActive ? "bg-success" : "bg-danger")">
+                                    @(service.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" data-action="edit" data-id="@service.Id">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" data-action="delete" data-id="@service.Id">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">No sub-sub services found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
