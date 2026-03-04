@@ -28,6 +28,11 @@
                 <i class="fas fa-heading"></i> Headers
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">
+                <i class="fas fa-list-alt"></i> Details
+            </button>
+        </li>
     </ul>
 
     <!-- Tab content -->
@@ -125,6 +130,11 @@
                 <label class="form-label" asp-for="DescriptionEn">Description (English)</label>
                 <textarea class="form-control" asp-for="DescriptionEn" rows="3"></textarea>
                 <span asp-validation-for="DescriptionEn" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" asp-for="URL">URL</label>
+                <input type="url" class="form-control" asp-for="URL" placeholder="https://..." />
             </div>
         </div>
 
@@ -339,11 +349,162 @@
                                         </div>
                                     </div>
                                 </div>
+
+        <!-- Tab 5: Details (Prerequisites, Steps, Required Documents) -->
+        <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+
+            <!-- Sub-tabs -->
+            <ul class="nav nav-pills mb-3" id="detailsSubTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="sub-prerequisites-tab" data-bs-toggle="pill" data-bs-target="#sub-prerequisites" type="button" role="tab" aria-controls="sub-prerequisites" aria-selected="true">
+                        <i class="fas fa-check-circle me-1"></i> Prerequisites
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sub-steps-tab" data-bs-toggle="pill" data-bs-target="#sub-steps" type="button" role="tab" aria-controls="sub-steps" aria-selected="false">
+                        <i class="fas fa-shoe-prints me-1"></i> Steps
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sub-requireddocs-tab" data-bs-toggle="pill" data-bs-target="#sub-requireddocs" type="button" role="tab" aria-controls="sub-requireddocs" aria-selected="false">
+                        <i class="fas fa-file-alt me-1"></i> Required Documents
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="detailsSubTabContent">
+
+                <!-- Sub-tab 1: Prerequisites -->
+                <div class="tab-pane fade show active" id="sub-prerequisites" role="tabpanel" aria-labelledby="sub-prerequisites-tab">
+                    <div class="card border-primary p-3 mb-3">
+                        <h6 class="text-primary mb-3">
+                            <i class="fas fa-plus me-1"></i> Add Prerequisite
+                        </h6>
+                        <div class="row g-2">
+                            <div class="col-md-5">
+                                <label class="form-label form-label-sm" for="prerequisiteNameAr">Name (Arabic)</label>
+                                <input type="text" class="form-control form-control-sm" id="prerequisiteNameAr" placeholder="Arabic..." />
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label form-label-sm" for="prerequisiteNameEn">Name (English)</label>
+                                <input type="text" class="form-control form-control-sm" id="prerequisiteNameEn" placeholder="English..." />
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="button" class="btn btn-success btn-sm w-100" id="addPrerequisiteBtn">
+                                    <i class="fas fa-plus me-1"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="prerequisitesResultTable" style="display:none;">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name (Arabic)</th>
+                                    <th>Name (English)</th>
+                                    <th width="100">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prerequisitesTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Sub-tab 2: Steps -->
+                <div class="tab-pane fade" id="sub-steps" role="tabpanel" aria-labelledby="sub-steps-tab">
+                    <div class="card border-primary p-3 mb-3">
+                        <h6 class="text-primary mb-3">
+                            <i class="fas fa-plus me-1"></i> Add Step
+                        </h6>
+                        <div class="row g-2">
+                            <div class="col-md-5">
+                                <label class="form-label form-label-sm" for="stepNameAr">Name (Arabic)</label>
+                                <input type="text" class="form-control form-control-sm" id="stepNameAr" placeholder="Arabic..." />
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label form-label-sm" for="stepNameEn">Name (English)</label>
+                                <input type="text" class="form-control form-control-sm" id="stepNameEn" placeholder="English..." />
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="button" class="btn btn-success btn-sm w-100" id="addStepBtn">
+                                    <i class="fas fa-plus me-1"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="stepsResultTable" style="display:none;">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name (Arabic)</th>
+                                    <th>Name (English)</th>
+                                    <th width="100">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stepsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Sub-tab 3: Required Documents -->
+                <div class="tab-pane fade" id="sub-requireddocs" role="tabpanel" aria-labelledby="sub-requireddocs-tab">
+                    <div class="card border-primary p-3 mb-3">
+                        <h6 class="text-primary mb-3">
+                            <i class="fas fa-plus me-1"></i> Add Required Document
+                        </h6>
+                        <div class="row g-2">
+                            <div class="col-md-5">
+                                <label class="form-label form-label-sm" for="requiredDocNameAr">Name (Arabic)</label>
+                                <input type="text" class="form-control form-control-sm" id="requiredDocNameAr" placeholder="Arabic..." />
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label form-label-sm" for="requiredDocNameEn">Name (English)</label>
+                                <input type="text" class="form-control form-control-sm" id="requiredDocNameEn" placeholder="English..." />
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="button" class="btn btn-success btn-sm w-100" id="addRequiredDocBtn">
+                                    <i class="fas fa-plus me-1"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="requiredDocsResultTable" style="display:none;">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name (Arabic)</th>
+                                    <th>Name (English)</th>
+                                    <th width="100">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requiredDocsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
                             </div>
                         </form>
 
                         <script id="existingHeadersJson" type="application/json">
                             @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model?.HeadersValue ?? new List<Services.Frontend.Web.Services.DTOs.ManageServices.HeaderValueDto>(),
+                                new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase }))
+                        </script>
+
+                        <script id="existingStepsJson" type="application/json">
+                            @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model?.StepsValue ?? new List<Services.Frontend.Web.Services.DTOs.ManageServices.StepsDto>(),
+                                new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase }))
+                        </script>
+
+                        <script id="existingPrerequisitesJson" type="application/json">
+                            @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model?.PrerequisitesValue ?? new List<Services.Frontend.Web.Services.DTOs.ManageServices.PrerequisitesDto>(),
+                                new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase }))
+                        </script>
+
+                        <script id="existingRequiredDocumentsJson" type="application/json">
+                            @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model?.RequiredDocumentsValue ?? new List<Services.Frontend.Web.Services.DTOs.ManageServices.RequiredDocumentsDto>(),
                                 new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase }))
                         </script>
 

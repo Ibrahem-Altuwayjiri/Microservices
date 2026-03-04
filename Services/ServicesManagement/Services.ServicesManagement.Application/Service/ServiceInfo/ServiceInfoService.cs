@@ -39,6 +39,9 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
             await saveServiceDomains(dto.Domains, serviceDetails.Id);
             await saveHeaderValue(dto.HeaderValue, serviceDetails.Id);
             await saveDocumentValue(dto.DocumentValue, serviceDetails.Id);
+            await saveSteps(dto.Steps, serviceDetails.Id);
+            await savePrerequisites(dto.Prerequisites, serviceDetails.Id);
+            await saveRequiredDocuments(dto.RequiredDocuments, serviceDetails.Id);
 
             await _unitOfWork.CompletedAsync();
 
@@ -64,6 +67,9 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
             await saveServiceDomains(dto.Domains, dto.Id);
             await deleteOldHeaderValue(dto.HeaderValue, dto.Id);
             await saveDocumentValue(dto.DocumentValue, dto.Id);
+            await saveSteps(dto.Steps, dto.Id);
+            await savePrerequisites(dto.Prerequisites, dto.Id);
+            await saveRequiredDocuments(dto.RequiredDocuments, dto.Id);
 
             var serviceDetails = await _unitOfWork.ServiceDetailsRepository.Update(entity);
 
@@ -179,6 +185,66 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
             //TODO: Implement file saving logic here
         }
 
+        private async Task saveSteps(List<CreateOrUpdateStepsDto>? stepsDto, string ServiceDetailsId)
+        {
+            var oldSteps = await _unitOfWork.StepsRepository.Find(m => m.ServiceDetailsId == ServiceDetailsId);
+            foreach (var item in oldSteps)
+            {
+                await _unitOfWork.StepsRepository.Remove(item);
+            }
+
+            var newSteps = stepsDto?
+                               .Select(m => new Steps
+                               {
+                                   NameAr = m.NameAr,
+                                   NameEn = m.NameEn,
+                                   ServiceDetailsId = ServiceDetailsId
+                               })
+                               .ToList();
+            if (newSteps != null || newSteps?.Count > 0)
+                await _unitOfWork.StepsRepository.AddRange(newSteps);
+        }
+
+        private async Task savePrerequisites(List<CreateOrUpdatePrerequisitesDto>? prerequisitesDto, string ServiceDetailsId)
+        {
+            var oldPrerequisites = await _unitOfWork.PrerequisitesRepository.Find(m => m.ServiceDetailsId == ServiceDetailsId);
+            foreach (var item in oldPrerequisites)
+            {
+                await _unitOfWork.PrerequisitesRepository.Remove(item);
+            }
+
+            var newPrerequisites = prerequisitesDto?
+                               .Select(m => new Prerequisites
+                               {
+                                   NameAr = m.NameAr,
+                                   NameEn = m.NameEn,
+                                   ServiceDetailsId = ServiceDetailsId
+                               })
+                               .ToList();
+            if (newPrerequisites != null || newPrerequisites?.Count > 0)
+                await _unitOfWork.PrerequisitesRepository.AddRange(newPrerequisites);
+        }
+
+        private async Task saveRequiredDocuments(List<CreateOrUpdateRequiredDocumentsDto>? requiredDocumentsDto, string ServiceDetailsId)
+        {
+            var oldRequiredDocuments = await _unitOfWork.RequiredDocumentsRepository.Find(m => m.ServiceDetailsId == ServiceDetailsId);
+            foreach (var item in oldRequiredDocuments)
+            {
+                await _unitOfWork.RequiredDocumentsRepository.Remove(item);
+            }
+
+            var newRequiredDocuments = requiredDocumentsDto?
+                               .Select(m => new RequiredDocuments
+                               {
+                                   NameAr = m.NameAr,
+                                   NameEn = m.NameEn,
+                                   ServiceDetailsId = ServiceDetailsId
+                               })
+                               .ToList();
+            if (newRequiredDocuments != null || newRequiredDocuments?.Count > 0)
+                await _unitOfWork.RequiredDocumentsRepository.AddRange(newRequiredDocuments);
+        }
+
         #endregion 
 
         public async Task<bool> activate(string id)
@@ -253,6 +319,9 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
                                                                                     .Include(o => o.SubSubService)
                                                                                     .Include(o => o.HeaderValue).ThenInclude(h => h.Header)
                                                                                     .Include(o => o.DocumentValue).ThenInclude(d => d.DocumentName)
+                                                                                    .Include(o => o.Steps)
+                                                                                    .Include(o => o.Prerequisites)
+                                                                                    .Include(o => o.RequiredDocuments)
 
                                                                                 );
 
@@ -279,6 +348,9 @@ namespace Services.ServicesManagement.Application.Service.ServiceInfo
                                                                                     .Include(o => o.SubSubService)
                                                                                     .Include(o => o.HeaderValue).ThenInclude(h => h.Header)
                                                                                     .Include(o => o.DocumentValue).ThenInclude(d => d.DocumentName)
+                                                                                    .Include(o => o.Steps)
+                                                                                    .Include(o => o.Prerequisites)
+                                                                                    .Include(o => o.RequiredDocuments)
  );
             if (entity == null)
                 throw new RestfulException("Not Found Service", RestfulStatusCodes.NotFound);

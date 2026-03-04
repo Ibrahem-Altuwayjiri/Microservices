@@ -19,6 +19,9 @@ namespace Services.ServicesManagement.Domain.IRepositories
         IGenericRepository<ServiceActivities> ServiceActivitiesRepository { get; set; }
         IGenericRepository<ServiceDomains> ServiceDomainsRepository { get; set; }
         IGenericRepository<ServiceTags> ServiceTagsRepository { get; set; }
+        IGenericRepository<Prerequisites> PrerequisitesRepository { get; set; }
+        IGenericRepository<Steps> StepsRepository { get; set; }
+        IGenericRepository<RequiredDocuments> RequiredDocumentsRepository { get; set; }
         IGenericRepository<SubService> SubServiceRepository { get; set; }
         IGenericRepository<SubSubService> SubSubServiceRepository { get; set; }
         IGenericRepository<Tags> TagsRepository { get; set; }

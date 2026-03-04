@@ -39,6 +39,13 @@ namespace Services.ServicesManagement.Application.Mapper
             CreateMap<DocumentValue, DocumentValueDto>().ReverseMap();
             CreateMap<DocumentValue, CreateOrUpdateDocumentValueDto>().ReverseMap();
 
+            CreateMap<Steps, StepsDto>().ReverseMap();
+            CreateMap<Steps, CreateOrUpdateStepsDto>().ReverseMap();
+            CreateMap<Prerequisites, PrerequisitesDto>().ReverseMap();
+            CreateMap<Prerequisites, CreateOrUpdatePrerequisitesDto>().ReverseMap();
+            CreateMap<RequiredDocuments, RequiredDocumentsDto>().ReverseMap();
+            CreateMap<RequiredDocuments, CreateOrUpdateRequiredDocumentsDto>().ReverseMap();
+
 
         }
     }

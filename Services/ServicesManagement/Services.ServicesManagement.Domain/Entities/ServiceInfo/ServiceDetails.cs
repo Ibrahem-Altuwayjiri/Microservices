@@ -16,6 +16,7 @@ namespace Services.ServicesManagement.Domain.Entities.ServiceInfo
         public string NameEn { get; set; }
         public string DescriptionAr { get; set; }
         public string DescriptionEn { get; set; }
+        public string? URL { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
 
         [ForeignKey("MainService")]
@@ -41,6 +42,9 @@ namespace Services.ServicesManagement.Domain.Entities.ServiceInfo
         public List<ServiceDomains> ServiceDomains { get; set; }
         public List<DocumentValue> DocumentValue { get; set; }
         public List<HeaderValue> HeaderValue { get; set; }
+        public List<Prerequisites> Prerequisites { get; set; }
+        public List<Steps> Steps { get; set; }
+        public List<RequiredDocuments> RequiredDocuments { get; set; }
 
     }
 }

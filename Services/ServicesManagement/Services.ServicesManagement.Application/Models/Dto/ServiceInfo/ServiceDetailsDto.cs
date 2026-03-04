@@ -16,6 +16,7 @@ namespace Services.ServicesManagement.Application.Models.Dto.ServiceInfo
         public string NameEn { get; set; }
         public string DescriptionAr { get; set; }
         public string DescriptionEn { get; set; }
+        public string? URL { get; set; }
         public bool IsActive { get; set; } = true;
         public string MainServiceId { get; set; }
         public MainServiceDto MainService { get; set; }
@@ -30,5 +31,8 @@ namespace Services.ServicesManagement.Application.Models.Dto.ServiceInfo
         public List<DomainsDto> Domains { get; set; }
         public List<DocumentValueDto> DocumentValue { get; set; }
         public List<HeaderValueDto> HeaderValue { get; set; }
+        public List<StepsDto> Steps { get; set; }
+        public List<PrerequisitesDto> Prerequisites { get; set; }
+        public List<RequiredDocumentsDto> RequiredDocuments { get; set; }
     }
 }

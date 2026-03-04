@@ -22,6 +22,7 @@ namespace Services.ServicesManagement.Application.Models.Dto.ServiceInfo.CreateO
         public string DescriptionAr { get; set; }
         [Required]
         public string DescriptionEn { get; set; }
+        public string? URL { get; set; }
         public string? MainServiceId { get; set; }
         public string? SubServiceId { get; set; }
         public string? SubSubServiceId { get; set; }
@@ -31,5 +32,8 @@ namespace Services.ServicesManagement.Application.Models.Dto.ServiceInfo.CreateO
         public List<int>? Domains { get; set; }
         public List<CreateOrUpdateDocumentValueDto>? DocumentValue { get; set; }
         public List<CreateOrUpdateHeaderValueDto>? HeaderValue { get; set; }
+        public List<CreateOrUpdateStepsDto>? Steps { get; set; }
+        public List<CreateOrUpdatePrerequisitesDto>? Prerequisites { get; set; }
+        public List<CreateOrUpdateRequiredDocumentsDto>? RequiredDocuments { get; set; }
     }
 }

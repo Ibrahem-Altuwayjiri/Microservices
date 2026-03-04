@@ -28,6 +28,9 @@ namespace Services.ServicesManagement.Domain.DBContext
         public DbSet<ServiceActivities> ServiceActivities { get; set; }
         public DbSet<ServiceTags> ServiceTags { get; set; }
         public DbSet<ServiceDomains> ServiceDomains { get; set; }
+        public DbSet<Prerequisites> Prerequisites { get; set; }
+        public DbSet<Steps> Steps { get; set; }
+        public DbSet<RequiredDocuments> RequiredDocuments { get; set; }
 
         // Lookup entities
         public DbSet<Tags> Tags { get; set; }
