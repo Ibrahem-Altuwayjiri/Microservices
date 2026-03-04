@@ -274,6 +274,7 @@ function loadExistingHeaderData() {
      initializeServiceDetailsForm();
     initLookupRows();
     initServiceStructureDropdowns();
+    initDetailsSubTabs();
 }
 
 /**
@@ -375,5 +376,105 @@ function initServiceStructureDropdowns() {
     if (currentMain) {
         mainSelect.value = currentMain;
         filterSubServices(currentMain);
+    }
+}
+
+/**
+ * Initialize the Details sub-tabs (Prerequisites, Steps, Required Documents).
+ * Each sub-tab follows the same add/delete table pattern as Headers.
+ */
+function initDetailsSubTabs() {
+    initDetailTable({
+        addBtnId: 'addPrerequisiteBtn',
+        nameArId: 'prerequisiteNameAr',
+        nameEnId: 'prerequisiteNameEn',
+        tableBodyId: 'prerequisitesTableBody',
+        resultTableId: 'prerequisitesResultTable',
+        jsonId: 'existingPrerequisitesJson'
+    });
+    initDetailTable({
+        addBtnId: 'addStepBtn',
+        nameArId: 'stepNameAr',
+        nameEnId: 'stepNameEn',
+        tableBodyId: 'stepsTableBody',
+        resultTableId: 'stepsResultTable',
+        jsonId: 'existingStepsJson'
+    });
+    initDetailTable({
+        addBtnId: 'addRequiredDocBtn',
+        nameArId: 'requiredDocNameAr',
+        nameEnId: 'requiredDocNameEn',
+        tableBodyId: 'requiredDocsTableBody',
+        resultTableId: 'requiredDocsResultTable',
+        jsonId: 'existingRequiredDocumentsJson'
+    });
+}
+
+function initDetailTable(cfg) {
+    const addBtn = document.getElementById(cfg.addBtnId);
+    const nameArInput = document.getElementById(cfg.nameArId);
+    const nameEnInput = document.getElementById(cfg.nameEnId);
+    const tBody = document.getElementById(cfg.tableBodyId);
+    const resultTable = document.getElementById(cfg.resultTableId);
+
+    if (!addBtn || !tBody) return;
+
+    addBtn.addEventListener('click', function () {
+        const nameAr = nameArInput.value.trim();
+        const nameEn = nameEnInput.value.trim();
+        if (!nameAr || !nameEn) {
+            alert('Please fill both Arabic and English names');
+            return;
+        }
+
+        const row = tBody.insertRow();
+        row.innerHTML = `
+            <td>${nameAr}</td>
+            <td>${nameEn}</td>
+            <td>
+                <button class="btn btn-sm btn-danger detail-delete-btn" type="button">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </td>
+        `;
+
+        nameArInput.value = '';
+        nameEnInput.value = '';
+        nameArInput.focus();
+        if (resultTable) resultTable.style.display = '';
+    });
+
+    tBody.addEventListener('click', function (e) {
+        if (!e.target.closest('.detail-delete-btn')) return;
+        const row = e.target.closest('tr');
+        if (row) row.remove();
+        if (resultTable && tBody.rows.length === 0) {
+            resultTable.style.display = 'none';
+        }
+    });
+
+    // Load existing data from JSON script block (edit mode)
+    const jsonEl = document.getElementById(cfg.jsonId);
+    if (jsonEl && jsonEl.textContent.trim()) {
+        try {
+            const items = JSON.parse(jsonEl.textContent);
+            if (Array.isArray(items) && items.length > 0) {
+                items.forEach(item => {
+                    const row = tBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.nameAr || ''}</td>
+                        <td>${item.nameEn || ''}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger detail-delete-btn" type="button">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    `;
+                });
+                if (resultTable) resultTable.style.display = '';
+            }
+        } catch (e) {
+            console.warn('Could not parse existing detail data:', e);
+        }
     }
 }

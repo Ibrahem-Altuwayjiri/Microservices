@@ -32,6 +32,9 @@ namespace Services.ServicesManagement.Infrastructure.Repositories
         public IGenericRepository<ServiceActivities> ServiceActivitiesRepository { get; set; }
         public IGenericRepository<ServiceDomains> ServiceDomainsRepository { get; set; }
         public IGenericRepository<ServiceTags> ServiceTagsRepository { get; set; }
+        public IGenericRepository<Prerequisites> PrerequisitesRepository { get; set; }
+        public IGenericRepository<Steps> StepsRepository { get; set; }
+        public IGenericRepository<RequiredDocuments> RequiredDocumentsRepository { get; set; }
         public IGenericRepository<SubService> SubServiceRepository { get; set; }
         public IGenericRepository<SubSubService> SubSubServiceRepository { get; set; }
         public IGenericRepository<Tags> TagsRepository { get; set; }
@@ -52,6 +55,9 @@ namespace Services.ServicesManagement.Infrastructure.Repositories
             ServiceActivitiesRepository = new GenericRepository<ServiceActivities>(_context);
             ServiceDomainsRepository = new GenericRepository<ServiceDomains>(_context);
             ServiceTagsRepository = new GenericRepository<ServiceTags>(_context);
+            PrerequisitesRepository = new GenericRepository<Prerequisites>(_context);
+            StepsRepository = new GenericRepository<Steps>(_context);
+            RequiredDocumentsRepository = new GenericRepository<RequiredDocuments>(_context);
             SubServiceRepository = new GenericRepository<SubService>(_context);
             SubSubServiceRepository = new GenericRepository<SubSubService>(_context);
             TagsRepository = new GenericRepository<Tags>(_context);

@@ -34,36 +34,55 @@
             <!-- Steps Tab -->
             <div class="tab-pane fade show active" id="steps-pane"
                  role="tabpanel" aria-labelledby="steps-tab">
-                <ol class="service-card-steps-list">
-                    <li>Visit National Unified Portal by using IAM (Nafath).</li>
-                    <li>Insert the personal information, i.e., phone No. and e-mail.</li>
-                    <li>Select the entity that you are reporting about.</li>
-                    <li>Select the related service that you are reporting about.</li>
-                    <li>Add a description and title for your request, and then submit it.</li>
-                    <li>Accordingly, you will receive an SMS that contains the report number.</li>
-                    <li>You will receive a follow-up SMS indicating your request has been escalated to the entity.</li>
-                    <li>You will receive a notification upon addressing the ticket or the lack of documents.</li>
-                </ol>
+                @if (Model?.Steps != null && Model.Steps.Count > 0)
+                {
+                    <ol class="service-card-steps-list">
+                        @foreach (var step in Model.Steps)
+                        {
+                            <li>@step.NameEn</li>
+                        }
+                    </ol>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">No steps defined.</p>
+                }
             </div>
 
             <!-- Prerequisites Tab -->
             <div class="tab-pane fade" id="prerequisites-pane"
                  role="tabpanel" aria-labelledby="prerequisites-tab">
-                <ul class="service-card-steps-list">
-                    <li>Must have a valid National ID or Iqama.</li>
-                    <li>Must have an active account on the platform.</li>
-                    <li>Must meet eligibility requirements for this service.</li>
-                </ul>
+                @if (Model?.Prerequisites != null && Model.Prerequisites.Count > 0)
+                {
+                    <ul class="service-card-steps-list">
+                        @foreach (var prereq in Model.Prerequisites)
+                        {
+                            <li>@prereq.NameEn</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">No prerequisites defined.</p>
+                }
             </div>
 
             <!-- Required Documents Tab -->
             <div class="tab-pane fade" id="documents-pane"
                  role="tabpanel" aria-labelledby="documents-tab">
-                <ul class="service-card-steps-list">
-                    <li>Copy of National ID / Iqama.</li>
-                    <li>Proof of address.</li>
-                    <li>Recent personal photo.</li>
-                </ul>
+                @if (Model?.RequiredDocuments != null && Model.RequiredDocuments.Count > 0)
+                {
+                    <ul class="service-card-steps-list">
+                        @foreach (var doc in Model.RequiredDocuments)
+                        {
+                            <li>@doc.NameEn</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted fst-italic">No required documents defined.</p>
+                }
             </div>
 
         </div>

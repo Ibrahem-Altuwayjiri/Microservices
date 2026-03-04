@@ -81,6 +81,7 @@ namespace Services.Frontend.Web.Services.ManageServices
                     dto.NameEn,
                     dto.DescriptionAr,
                     dto.DescriptionEn,
+                    dto.URL,
                     dto.MainServiceId,
                     dto.SubServiceId,
                     dto.SubSubServiceId,
@@ -88,7 +89,10 @@ namespace Services.Frontend.Web.Services.ManageServices
                     dto.Tags,
                     dto.Domains,
                     DocumentValue = dto.DocumentsValue,
-                    HeaderValue = dto.HeadersValue
+                    HeaderValue = dto.HeadersValue,
+                    Steps = dto.StepsValue,
+                    Prerequisites = dto.PrerequisitesValue,
+                    RequiredDocuments = dto.RequiredDocumentsValue
                 },
                 ContentType = SD.ContentType.Json
             };
@@ -121,6 +125,7 @@ namespace Services.Frontend.Web.Services.ManageServices
                     dto.NameEn,
                     dto.DescriptionAr,
                     dto.DescriptionEn,
+                    dto.URL,
                     dto.MainServiceId,
                     dto.SubServiceId,
                     dto.SubSubServiceId,
@@ -128,7 +133,10 @@ namespace Services.Frontend.Web.Services.ManageServices
                     dto.Tags,
                     dto.Domains,
                     DocumentValue = dto.DocumentsValue,
-                    HeaderValue = dto.HeadersValue
+                    HeaderValue = dto.HeadersValue,
+                    Steps = dto.StepsValue,
+                    Prerequisites = dto.PrerequisitesValue,
+                    RequiredDocuments = dto.RequiredDocumentsValue
                 },
                 ContentType = SD.ContentType.Json
             };

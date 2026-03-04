@@ -289,13 +289,17 @@ function buildServiceDetailsDto(form) {
         NameEn:         fd.get('NameEn')         || '',
         DescriptionAr:  fd.get('DescriptionAr')  || '',
         DescriptionEn:  fd.get('DescriptionEn')  || '',
+        URL:            fd.get('URL')            || null,
         MainServiceId:  fd.get('MainServiceId')  || null,
         SubServiceId:   fd.get('SubServiceId')   || null,
         SubSubServiceId:fd.get('SubSubServiceId') || null,
         Activities:     fd.getAll('Activities').map(Number).filter(n => n > 0),
         Domains:        fd.getAll('Domains').map(Number).filter(n => n > 0),
         Tags:           fd.getAll('Tags').map(Number).filter(n => n > 0),
-        HeadersValue:   buildHeadersFromTable()
+        HeadersValue:   buildHeadersFromTable(),
+        StepsValue:     buildDetailsFromTable('stepsTableBody'),
+        PrerequisitesValue: buildDetailsFromTable('prerequisitesTableBody'),
+        RequiredDocumentsValue: buildDetailsFromTable('requiredDocsTableBody')
     };
 }
 
@@ -309,6 +313,18 @@ function buildHeadersFromTable() {
             HeaderId: parseInt(row.cells[0].getAttribute('data-value')) || 0,
             NameAr:   row.cells[1].innerText.trim(),
             NameEn:   row.cells[2].innerText.trim()
+        }));
+}
+
+// Read a details table (Steps/Prerequisites/RequiredDocuments) and produce List<{NameAr, NameEn}>
+function buildDetailsFromTable(tableBodyId) {
+    const tableBody = document.getElementById(tableBodyId);
+    if (!tableBody) return [];
+    return Array.from(tableBody.querySelectorAll('tr'))
+        .filter(row => row.cells.length >= 2)
+        .map(row => ({
+            NameAr: row.cells[0].innerText.trim(),
+            NameEn: row.cells[1].innerText.trim()
         }));
 }
 
